@@ -1,8 +1,20 @@
-# XarrPay-Templates
-## 快速开始
-XarrPay-Templates是`XarrPay-商户版`的模板库
+# 快速开始
+`index`是`XarrPay-商户版`的自定义首页库
+1. 上传到`项目根目录/templates/index/自己命名模板名称`
 
-## 模板结构：
+2. - 商户版后台--系统设置--基础信息
+   - 首页类型选择--自定义模板
+   - 首页模板--填写  自己命名模板名称
+---
+若没有样式，可能是忘了关键字替换
+
+1. 在宝塔中打开index.html
+
+2. ctrl+h替换
+   - 第一行--`assets`
+   - 第二行--`${.templateAssets}`
+   - 全局替换
+# 模板结构：
 ```
 - assets
     - css           // 样式文件
@@ -13,7 +25,7 @@ XarrPay-Templates是`XarrPay-商户版`的模板库
 - 其他页面html文件   //如about.html等
 ```
 
-## 页内常用配置项
+# 页内常用配置项
 ```html
 网站名称
 ${"web_title" | get_option}
