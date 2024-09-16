@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="${" web_description" | get_option}">
+    <meta name="author" content="HG007">
+    <meta name="keywords" content="${" web_keywords" | get_option}" />
+    <title>${"web_title" | get_option} - 行业领先的免签约支付平台</title>
+    <!-- Preloader -->
+    <style>
+        @keyframes hidePreloader {
+            0% {
+                width: 100%;
+                height: 100%;
+            }
+
+            100% {
+                width: 0;
+                height: 0;
+            }
+        }
+
+        body>div.preloader {
+            position: fixed;
+            background: white;
+            width: 100%;
+            height: 100%;
+            z-index: 1071;
+            opacity: 0;
+            transition: opacity .5s ease;
+            overflow: hidden;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body:not(.loaded)>div.preloader {
+            opacity: 1;
+        }
+
+        body:not(.loaded) {
+            overflow: hidden;
+        }
+
+        body.loaded>div.preloader {
+            animation: hidePreloader .5s linear .5s forwards;
+        }
+    </style>
+    <script>
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                document.querySelector('body').classList.add('loaded');
+            }, 300);
+        });
+    </script>
+    <!-- Favicon -->
+    <link rel="icon" href="assets/img/favicon.png" type="image/png"><!-- Font Awesome -->
+    <link rel="stylesheet" href="assets/css/all.min.css">
+    <!-- Quick CSS -->
+    <link rel="stylesheet" href="assets/css/quick-website.css" id="stylesheet">
+    
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal-cookies" data-backdrop="false"
+        aria-labelledby="modal-cookies" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-aside left-4 right-4 bottom-4">
+            <div class="modal-content bg-dark-dark">
+                <div class="modal-body">
+                    <!-- Text -->
+                    <p class="text-sm text-white mb-3">
+                        We use cookies so that our themes work for you. By using our website, you agree to our use of
+                        cookies.
+                    </p>
+                    <!-- Buttons -->
+                    <a href="/pages/utility/terms.html" class="btn btn-sm btn-white" target="_blank">Learn more</a>
+                    <button type="button" class="btn btn-sm btn-primary mr-2" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Go Pro -->
+    <!--<a href="https://webpixels.io/themes/quick-website-ui-kit" class="btn btn-block btn-dark text-truncate rounded-0 py-2 d-none d-lg-block" style="z-index: 1000;" target="_blank">-->
+    <!--    <strong>This is a free demo.</strong> Click here to open the full version →-->
+    <!--</a>-->
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand-1" href="/index.html">
+                <img draggable="false" alt="Image placeholder" src="assets/img/logo.png" style="max-height:50px;"
+                    id="navbar-logo">
+                <span style="font-size: 30px;
+                    /* line-height: 50px; */
+                    float: right;
+                    text-align: center;
+                    text-indent: 10px;
+                    font-weight: bolder;">
+                    ${"web_title" | get_option}</span>
+            </a>
+            <!-- Toggler -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mt-4 mt-lg-0 ml-auto">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#">首页</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/demo">在线测试</a>
+                    </li>
+                    <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+                        <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">其他</a>
+                        <div class="dropdown-menu dropdown-menu-single">
+                            <a href="/doc" class="dropdown-item">开发文档</a>
+                            <!-- 自行添加 -->
+                            <a href="#" class="dropdown-item">法律政策</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">关于我们</a>
+                        </div>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="/register">商户注册</a>
+                    </li>
+                </ul>
+                <!-- Button -->
+                <a class="navbar-btn btn btn-sm btn-primary d-none d-lg-inline-block ml-3" href="/user">
+                    商户登录
+                </a>
+                <!-- Mobile button -->
+                <div class="d-lg-none text-center">
+                    <a href="/user" class="btn btn-block btn-sm btn-warning">商户登录</a>
+                </div>
+            </div>
+        </div>
+    </nav> <!-- Main content -->
+    <section class="slice py-7">
+        <div class="container">
+            <div class="row row-grid align-items-center">
+                <div class="col-12 col-md-5 col-lg-6 order-md-2 text-center">
+                    <!-- Image -->
+                    <figure class="w-100">
+                        <img draggable="false" alt="Image placeholder" src="assets/img/illustration-3.svg"
+                            class="img-fluid mw-md-120">
+                    </figure>
+                </div>
+                <div class="col-12 col-md-7 col-lg-6 order-md-1 pr-md-5">
+                    <!-- Heading -->
+                    <h1 class="display-4 text-center text-md-left mb-3">
+                        全新支付体验 <strong class="text-primary">${"web_title" | get_option}</strong>
+                    </h1>
+                    <!-- Text -->
+                    <p class="lead text-center text-md-left text-muted">
+                        极速响应、安全可靠、方便快捷是我们最大的特点，轻松实现手机付款、在线付款，${"web_title" | get_option}是您的不二之选，欢迎咨询${"web_title" |
+                        get_option}。
+                    </p>
+                    <!-- Buttons -->
+                    <div class="text-center text-md-left mt-5">
+                        <a href="/user" class="btn btn-primary btn-icon" target="_blank">
+                            <span class="btn-inner--text">立即登录</span>
+                            <span class="btn-inner--icon"><i data-feather="chevron-right"></i></span>
+                        </a>
+                        <a href="/register" class="btn btn-neutral btn-icon d-none d-lg-inline-block"
+                            target="_blank">商户注册</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slice slice-lg pt-lg-6 pb-0 pb-lg-6 bg-section-secondary">
+        <div class="container">
+            <!-- Title -->
+            <!-- Section title -->
+            <div class="row mb-5 justify-content-center text-center">
+                <div class="col-lg-6">
+                    <span class="badge badge-soft-success badge-pill badge-lg">
+                        开始使用
+                    </span>
+                    <h2 class=" mt-4">凭什么选择我们？</h2>
+                    <div class="mt-2">
+                        <p class="lead lh-180">
+                            提供多种支付接入方式，方便，简单，快捷，快速集成到，效率高，见效快，费率低。支持全球三大主流结算币种，多元化产品为你提供一站式支付服务。无假期，无账期，365天随时随地提现。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card -->
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body pb-5">
+                            <div class="pt-4 pb-5">
+                                <img draggable="false" src="assets/img/illustration-5.svg" class="img-fluid img-center"
+                                    style="height: 150px;" alt="Illustration" />
+                            </div>
+                            <h5 class="h4 lh-130 mb-3">服务器安全</h5>
+                            <p class="text-muted mb-0">采用群集服务器，防御高，故障率低，无论用户身在何方，均能获得流畅安全可靠的体验。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body pb-5">
+                            <div class="pt-4 pb-5">
+                                <img draggable="false" src="assets/img/illustration-6.svg" class="img-fluid img-center"
+                                    style="height: 150px;" alt="Illustration" />
+                            </div>
+                            <h5 class="h4 lh-130 mb-3">资金保障</h5>
+                            <p class="text-muted mb-0">结算及时，资金秒到，资金平均停留的时间不超过12小时，您的资金安全将得到充分的保障。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body pb-5">
+                            <div class="pt-4 pb-5">
+                                <img draggable="false" src="assets/img/illustration-7.svg" class="img-fluid img-center"
+                                    style="height: 150px;" alt="Illustration" />
+                            </div>
+                            <h5 class="h4 lh-130 mb-3">持续更新</h5>
+                            <p class="text-muted mb-0">系统持续更新，功能持续完善，让商户以及客户的体验不断接近完美是我们一直不变的追求。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slice slice-lg">
+        <div class="container">
+            <div class="py-6">
+                <div class="row row-grid justify-content-between align-items-center">
+                    <div class="col-lg-5 order-lg-2">
+                        <h5 class="h3">专业的技术团队与行业资源</h5>
+                        <p class="lead my-4">
+                            专业的技术团队与丰富的行业资源保障稳定、便捷的产品和服务。<br>
+                            通过SDK接入多种主流通道，用saas模式创建商户交易管理系统，您无须投入技术团队和通道资源也能够实现自己的支付系统、管理自己的交易订单。
+                        </p>
+                        <ul class="list-unstyled mb-0">
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="icon icon-shape bg-primary text-white icon-sm rounded-circle mr-3">
+                                            <i class="fas fa-file-invoice"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="h6 mb-0">品牌优势</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="icon icon-shape bg-primary text-white icon-sm rounded-circle mr-3">
+                                            <i class="fas fa-store-alt"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="h6 mb-0">界面简约</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 order-lg-1">
+                        <div class="card mb-0 mr-lg-5">
+                            <div class="card-body p-2">
+                                <img draggable="false" alt="Image placeholder" src="assets/img/screen-1-1000x800.jpg"
+                                    class="img-fluid shadow rounded">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="py-6">
+                <div class="row row-grid justify-content-between align-items-center">
+                    <div class="col-lg-5">
+                        <h5 class="h3">一站式的平台管理系统</h5>
+                        <p class="lead my-4">
+                            ${"web_title" | get_option}开放平台——渠道分层管理系统。<br>
+                            无论是平台自营或是代理，均能进行层级管理，全局把控交易和财务，实现自由灵活的商户交易管理，并能与合作伙伴便捷分享利益。
+                        </p>
+                        <ul class="list-unstyled mb-0">
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="icon icon-shape bg-primary text-white icon-sm rounded-circle mr-3">
+                                            <i class="fas fa-file-invoice"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="h6 mb-0">长期稳定支付通道</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="icon icon-shape bg-primary text-white icon-sm rounded-circle mr-3">
+                                            <i class="fas fa-store-alt"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="h6 mb-0">方便快捷账号管理</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="py-2">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <div class="icon icon-shape bg-primary text-white icon-sm rounded-circle mr-3">
+                                            <i class="fas fa-store-alt"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="h6 mb-0">高效实时监控订单</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card mb-0 ml-lg-5">
+                            <div class="card-body p-2">
+                                <img draggable="false" alt="Image placeholder" src="assets/img/screen-2-1000x800.jpg"
+                                    class="img-fluid shadow rounded">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slice slice-lg bg-section-dark pt-5 pt-lg-8">
+        <!-- SVG separator -->
+        <div class="shape-container shape-line shape-position-top shape-orientation-inverse">
+            <svg width="2560px" height="100px" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px"
+                viewBox="0 0 2560 100" style="enable-background:new 0 0 2560 100;" xml:space="preserve" class="">
+                <polygon points="2560 0 2560 100 0 100"></polygon>
+            </svg>
+        </div>
+        <!-- Container -->
+        <div class="container position-relative zindex-100">
+            <div class="col">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 text-center">
+                        <div class="mt-4 mb-6">
+                            <h2 class="h1 text-white">
+                                我们的优势
+                            </h2>
+                            <h4 class="text-white mt-3">方便快捷的支付接入体验，让支付和收款更简单！</h4>
+                            <!-- Play button -->
+                            <a href="/register" class="btn btn-primary btn-icon mt-4">点击加入</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slice pt-0">
+        <div class="container position-relative zindex-100">
+            <div class="row">
+                <div class="col-xl-4 col-sm-6 mt-n7">
+                    <div class="card">
+                        <div class="d-flex p-5">
+                            <div>
+                                <span class="badge badge-warning badge-pill">New</span>
+                            </div>
+                            <div class="pl-4">
+                                <h5 class="lh-130">极简使用</h5>
+                                <p class="text-muted mb-0">
+                                    七行代码，极速完成，支付接入，简洁的操作界面易于使用.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 mt-sm-n7">
+                    <div class="card">
+                        <div class="d-flex p-5">
+                            <div>
+                                <span class="badge badge-success badge-pill">Tips</span>
+                            </div>
+                            <div class="pl-4">
+                                <h5 class="lh-130">不介入资金流</h5>
+                                <p class="text-muted mb-0">
+                                    只负责交易处理不参与资金清算，保障您的资金安全。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-12 col-sm-6 mt-xl-n7">
+                    <div class="card">
+                        <div class="d-flex p-5">
+                            <div>
+                                <span class="badge badge-danger badge-pill">Update</span>
+                            </div>
+                            <div class="pl-3">
+                                <h5 class="lh-130">增值服务</h5>
+                                <p class="text-muted mb-0">
+                                    提供金融产品及技术服务，帮助企业整合互联网金融。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-4 col-sm-6">
+                    <div class="card">
+                        <div class="d-flex p-5">
+                            <div>
+                                <span class="badge badge-warning badge-pill">New</span>
+                            </div>
+                            <div class="pl-4">
+                                <h5 class="lh-130">灵活便利</h5>
+                                <p class="text-muted mb-0">
+                                    产品服务灵活组合，满足企业多元化业务需求。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6">
+                    <div class="card">
+                        <div class="d-flex p-5">
+                            <div>
+                                <span class="badge badge-success badge-pill">Tips</span>
+                            </div>
+                            <div class="pl-4">
+                                <h5 class="lh-130">大数据</h5>
+                                <p class="text-muted mb-0">
+                                    运用交易数据分析功能，了解公司运营状况。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-12 col-sm-6">
+                    <div class="card">
+                        <div class="d-flex p-5">
+                            <div>
+                                <span class="badge badge-danger badge-pill">Safety</span>
+                            </div>
+                            <div class="pl-3">
+                                <h5 class="lh-130">安全稳定</h5>
+                                <p class="text-muted mb-0">
+                                    平台运行于阿里云计算中心，多备份容灾保障。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="slice slice-lg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <span class="badge badge-primary badge-pill">快速资金回笼</span>
+                    <h5 class="lh-180 mt-4 mb-6">一次轻松接入所有支付（QQ钱包，支付宝，微信），省时省心省力， 结算费率低，利润高！对接费率超低，比其它平台更便宜。全天监视订单
+                        和资金安全，正规支付接口！</h5>
+                </div>
+            </div>
+            <!-- Features -->
+            <div class="row mx-lg-n4">
+                <!-- Features - Col 1 -->
+                <div class="col-lg-4 col-md-6 px-lg-4">
+                    <div class="card shadow-none">
+                        <div class="p-3 d-flex">
+                            <div>
+                                <div class="icon icon-shape rounded-circle bg-warning text-white mr-4">
+                                    <i data-feather="check"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="h6">方便接入</span>
+                                <p class="text-sm text-muted mb-0">
+                                    根据我们提供的开发文档，可快速接入你的网站，让你的网站支持在线支付功能，享受免签约支付的乐趣。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 px-lg-4">
+                    <div class="card shadow-none">
+                        <div class="p-3 d-flex">
+                            <div>
+                                <div class="icon icon-shape rounded-circle bg-primary text-white mr-4">
+                                    <i data-feather="check"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="h6">低手续费</span>
+                                <p class="text-sm text-muted mb-0">
+                                    结算费率低至0%，每日满1元自动结算，上不封顶，提现手续费最低0元，最高0元。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 px-lg-4">
+                    <div class="card shadow-none">
+                        <div class="p-3 d-flex">
+                            <div>
+                                <div class="icon icon-shape rounded-circle bg-danger text-white mr-4">
+                                    <i data-feather="check"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="h6">智能提醒</span>
+                                <p class="text-sm text-muted mb-0">
+                                    易付通提供商户APP、QQ机器人、邮箱等多种提醒方式可选，让您随时获知自己的收入动态。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 px-lg-4">
+                    <div class="card shadow-none">
+                        <div class="p-3 d-flex">
+                            <div>
+                                <div class="icon icon-shape rounded-circle bg-success text-white mr-4">
+                                    <i data-feather="check"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="h6">安全放心</span>
+                                <p class="text-sm text-muted mb-0">
+                                    我们用的支付接口全为自己申请，不存在二次对接的情况，彻底避免对接方跑路导致无法结算的情况！
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 px-lg-4">
+                    <div class="card shadow-none">
+                        <div class="p-3 d-flex">
+                            <div>
+                                <div class="icon icon-shape rounded-circle bg-info text-white mr-4">
+                                    <i data-feather="check"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="h6">自动结算</span>
+                                <p class="text-sm text-muted mb-0">
+                                    采取T+1结算方式，交易金额满1元，系统会于次日零点开始自动结算，不满10元亦可申请手动结算。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 px-lg-4">
+                    <div class="card shadow-none">
+                        <div class="p-3 d-flex">
+                            <div>
+                                <div class="icon icon-shape rounded-circle bg-warning text-white mr-4">
+                                    <i data-feather="check"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="h6">插件拓展</span>
+                                <p class="text-sm text-muted mb-0">
+                                    提供SDK测试包，方便快速开发和接入，后续会逐渐提供discuz、WordPress等平台的支付相关插件。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Features - Col 3 -->
+                <div class="col-lg-4 col-md-6 px-lg-4">
+                    <div class="card shadow-none">
+                        <div class="p-3 d-flex">
+                            <div>
+                                <div>
+                                    <div class="icon icon-shape rounded-circle bg-info text-white mr-4">
+                                        <i data-feather="check"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="h6">安全密码</span>
+                                <p class="text-sm text-muted mb-0">
+                                    可自行开关，为你的账户安全保驾护航。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 px-lg-4">
+                    <div class="card shadow-none">
+                        <div class="p-3 d-flex">
+                            <div>
+                                <div>
+                                    <div class="icon icon-shape rounded-circle bg-danger text-white mr-4">
+                                        <i data-feather="check"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="h6">自助服务</span>
+                                <p class="text-sm text-muted mb-0">
+                                    同时平台全面提供7*24小时客户服务，保障客户问题随时得到处理解决。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 px-lg-4">
+                    <div class="card shadow-none">
+                        <div class="p-3 d-flex">
+                            <div>
+                                <div>
+                                    <div class="icon icon-shape rounded-circle bg-primary text-white mr-4">
+                                        <i data-feather="check"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="h6">快速高效</span>
+                                <p class="text-sm text-muted mb-0">
+                                    毫秒级超快速响应，1V1专业客服服务，7*24小时技术支持。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="position-relative" id="footer-main">
+        <div class="footer pt-lg-7 footer-dark bg-dark">
+            <!-- SVG shape -->
+            <div class="shape-container shape-line shape-position-top shape-orientation-inverse">
+                <svg width="2560px" height="100px" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" x="0px" y="0px"
+                    viewBox="0 0 2560 100" style="enable-background:new 0 0 2560 100;" xml:space="preserve"
+                    class=" fill-section-secondary">
+                    <polygon points="2560 0 2560 100 0 100"></polygon>
+                </svg>
+            </div>
+            <!-- Footer -->
+            <div class="container pt-4">
+                <div class="row">
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <!-- Theme's logo -->
+                        <a href="/">
+                            <img draggable="false" alt="Image placeholder" height="80" src="assets/img/logo.png"
+                                id="footer-logo">
+                        </a>
+                        <!-- Webpixels' mission -->
+                        <!-- 底部LOGO描述 -->
+                        <p class="mt-4 text-sm opacity-8 pr-lg-4">${"web_title" |
+                            get_option}为每一个需要支付服务的企业提供服务和技术支持，帮助企业快速的搭建自己的支付系统。<br>
+                            现在如今，支付是商业变现必不可少的环节。我们聚合所有主流支付渠道，给你更简单、快捷的接入体验，同时提供简单易用的管理平台，让你可以集中进行跨渠道的交易管理和财务管理。<br>
+                            我们致力于帮助企业快速和高质量地建立支付模块，满足企业任何支付场景的需求！</p>
+                        <!-- Social -->
+                        <!-- <ul class="nav mt-4">
+                            <li class="nav-item">
+                                <a class="nav-link pl-0" href="https://dribbble.com/webpixels" target="_blank">
+                                    <i class="fab fa-dribbble"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://github.com/webpixels" target="_blank">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.instagram.com/webpxs" target="_blank">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://www.facebook.com/webpixels" target="_blank">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                            </li>
+                        </ul> -->
+                    </div>
+                    <div class="col-lg-2 col-6 col-sm-4 ml-lg-auto mb-5 mb-lg-0">
+                        <h6 class="heading mb-3">用户协议</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#">禁售商品</a></li>
+                            <li><a href="#">隐私协议</a></li>
+                            <li><a href="#">注册协议</a></li>
+                            <li><a href="#">服务条款</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-6 col-sm-4 mb-5 mb-lg-0">
+                        <h6 class="heading mb-3">关于我们</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#">联系我们</a></li>
+                            <li><a href="/demo">支付测试</a></li>
+                            <li><a href="/user">商户登录</a></li>
+                            <li><a href="/register">商户注册</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-6 col-sm-4 mb-5 mb-lg-0">
+                        <h6 class="heading mb-3">产品项目</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#">商户系统</a></li>
+                            <li><a href="#">二维码支付</a></li>
+                            <li><a href="#">H5 支付</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="divider divider-fade divider-dark my-4">
+                <div class="row align-items-center justify-content-md-between pb-4">
+                    <div class="col-md-6">
+                        <!-- 版权 -->
+                        <div class="copyright text-sm font-weight-bold text-center text-md-left">
+                            &copy; 2023 - 2024&nbsp;&nbsp;<a href="/" class="font-weight-bold"
+                                target="_blank">${"web_title" | get_option}&nbsp;</a>. All rights reserved
+                            &nbsp;&nbsp;${"web_title" | get_option} <br><a
+                                href="https://beian.miit.gov.cn/">${"web_copyright" | get_option}</a>丨&nbsp;&nbsp;<img
+                                draggable="false" height="18" src="assets/img/logo01.dd7ff50e.png"><a
+                                href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=XXXXXXXXX">&nbsp;X公网安备
+                                XXXXXXXXXXX号
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="nav justify-content-center justify-content-md-end mt-3 mt-md-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    服务条款
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    法律声明
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    Cookies
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Core JS  -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/svg-injector.min.js"></script>
+    <script src="assets/js/feather.min.js"></script>
+    <!-- Quick JS -->
+    <script src="assets/js/quick-website.js"></script>
+    <!-- Feather Icons -->
+    <script>
+        feather.replace({
+            'width': '1em',
+            'height': '1em'
+        })
+    </script>
+</body>
+
+</html>
