@@ -10,6 +10,7 @@ XarrPay-Templates是`XarrPay-商户版`的主题库
 | :--: | :--: | :--: |
 | 1 | [模板1](https://novices666.github.io/XarrPay-Templates/index/templates_1/) | [下载](https://github.com/Novices666/XarrPay-Templates/raw/main/index/src/templates_1.zip) |
 | 2 | [模板2](https://novices666.github.io/XarrPay-Templates/index/templates_2/) | [下载](https://github.com/Novices666/XarrPay-Templates/raw/main/index/src/templates_2.zip) |
+| 3 | [模板3](https://novices666.github.io/XarrPay-Templates/index/templates_3/) | [下载](https://github.com/Novices666/XarrPay-Templates/raw/main/index/src/templates_3.zip) |
 
 ### 使用模板
 1. 下载并上传到`项目根目录/templates/index/自己命名模板名称`
