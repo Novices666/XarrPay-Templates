@@ -1,0 +1,3354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      ${"web_title" | get_option} - ${"web_description" | get_option}
+    </title>
+    <meta content="${"web_keywords" | get_option}" name="keywords"> <meta
+    content="${"web_description" | get_option}" name="description"> <link
+    href="${"web_favicon" | get_option}" rel="shortcut icon" type="image/x-icon"
+    />
+    <link href="${.templateAssets}/css/tailwind.min.css" rel="stylesheet" />
+    <link href="${.templateAssets}/css/animate.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="${.templateAssets}/css/swiper-bundle.min.css" />
+
+    <style>
+      .gradient-bg {
+        background: linear-gradient(120deg, #4f46e5, #7c3aed, #ec4899);
+        background-size: 200% 200%;
+        animation: gradientBG 15s ease infinite;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+
+        50% {
+          background-position: 100% 50%;
+        }
+
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .hover-scale {
+        transition: transform 0.3s ease;
+      }
+
+      .hover-scale:hover {
+        transform: scale(1.05);
+      }
+
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .nav-menu {
+        display: flex;
+        align-items: center;
+      }
+
+      .mobile-menu {
+        display: none;
+      }
+
+      .testimonialSwiper {
+        padding: 20px 0;
+      }
+
+      .swiper-slide {
+        transition: all 0.3s ease;
+      }
+
+      .swiper-slide:hover {
+        transform: translateY(-10px);
+      }
+
+      .swiper-pagination-bullet {
+        background: #4f46e5;
+      }
+
+      .swiper-button-next,
+      .swiper-button-prev {
+        color: #4f46e5;
+      }
+
+      @media (max-width: 768px) {
+        .nav-menu {
+          display: none;
+        }
+
+        .mobile-menu {
+          display: none;
+          position: fixed;
+          top: 64px;
+          left: 0;
+          right: 0;
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(10px);
+          padding: 1rem;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          z-index: 40;
+          animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+          from {
+            transform: translateY(-10px);
+            opacity: 0;
+          }
+
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+
+        .mobile-menu.active {
+          display: block;
+        }
+
+        .banner-content {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .banner-text {
+          width: 100%;
+          margin-bottom: 2rem;
+        }
+
+        .banner-image {
+          width: 100%;
+          margin-top: 2rem;
+        }
+
+        .stats-container {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .stat-item {
+          width: 45%;
+          margin: 0.5rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-50">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center">
+            <a
+              style="
+                text-transform: uppercase;
+                letter-spacing: 3px;
+                font-weight: 700;
+                font-size: 1.25rem;
+              "
+              href="/"
+              >${"web_title" | get_option}<!--<div style="border-radius: 4px;background:#E03333;color:#fff;font-size:12px;display:inline-block;line-height:17px;padding:5px;vertical-align:middle" class="visible-lg">中国支付清算协会官方<br>备案收单外包服务机构</div>--></a
+            >
+            <!--<img src="${.templateAssets}/images/logo.svg" alt="易支付" class="h-10 hover-scale">-->
+            <div class="nav-menu space-x-8 ml-8">
+              <a
+                href="/"
+                class="text-lg text-gray-600 hover:text-indigo-600 transition-colors duration-300 flex items-center"
+              >
+                <svg
+                  class="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  ></path>
+                </svg>
+                首页
+              </a>
+              <a
+                href="/doc"
+                class="text-lg text-gray-600 hover:text-indigo-600 transition-colors duration-300 flex items-center"
+              >
+                <svg
+                  class="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  ></path>
+                </svg>
+                开发文档
+              </a>
+              <a
+                href="/demo"
+                class="text-lg text-gray-600 hover:text-indigo-600 transition-colors duration-300 flex items-center"
+              >
+                <svg
+                  class="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                  ></path>
+                </svg>
+                支付测试
+              </a>
+              <!-- <a href="#lxwm" class="text-lg text-gray-600 hover:text-indigo-600 transition-colors duration-300 flex items-center">
+                               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                               </svg>
+                               联系我们
+                           </a> -->
+              <!-- <a href="#dj" class="text-lg text-gray-600 hover:text-indigo-600 transition-colors duration-300 flex items-center">
+                               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                               </svg>
+                               价格方案
+                           </a> -->
+              <!-- <a href="#gg" class="text-lg text-gray-600 hover:text-indigo-600 transition-colors duration-300 flex items-center">
+                               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                               </svg>
+                               公告中心
+                           </a> -->
+            </div>
+          </div>
+          <div class="nav-menu space-x-4">
+            <a
+              href="/register"
+              class="px-6 py-2 rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl text-lg"
+              >免费体验</a
+            >
+            <a
+              href="/user"
+              class="px-6 py-2 rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl text-lg"
+              >商户中心</a
+            >
+          </div>
+          <button
+            class="md:hidden flex items-center mr-4"
+            onclick="toggleMenu()"
+          >
+            <svg
+              class="w-6 h-6 text-blue-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div
+          class="mobile-menu hidden md:hidden w-full bg-white/95 backdrop-blur-lg rounded-b-2xl"
+          id="mobileMenu"
+        >
+          <div class="flex flex-col py-4 space-y-2">
+            <a
+              href="/"
+              class="px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-all duration-300 flex items-center"
+            >
+              <svg
+                class="w-5 h-5 mr-3"
+                fill="none"
+                stroke="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                ></path>
+              </svg>
+              首页
+            </a>
+            <a
+              href="/doc"
+              class="px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-all duration-300 flex items-center"
+            >
+              <svg
+                class="w-5 h-5 mr-3"
+                fill="none"
+                stroke="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                ></path>
+              </svg>
+              开发文档
+            </a>
+            <a
+              href="/demo"
+              class="px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-all duration-300 flex items-center"
+            >
+              <svg
+                class="w-5 h-5 mr-3"
+                fill="none"
+                stroke="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                ></path>
+              </svg>
+              支付测试
+            </a>
+            <!-- <a href="https://pay.cikr.cn/#lxwm" class="px-6 py-3 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-all duration-300 flex items-center">
+                           <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                           </svg>
+                           联系我们
+                       </a> -->
+            <div class="border-t border-gray-200 my-2"></div>
+            <a
+              href="/login"
+              class="mx-4 px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-all duration-300 text-center shadow-lg"
+            >
+              登录
+            </a>
+            <a
+              href="/register"
+              class="mx-4 px-6 py-3 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-all duration-300 text-center shadow-lg"
+            >
+              立即注册
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <script>
+      function toggleMenu() {
+        const mobileMenu = document.getElementById("mobileMenu");
+        mobileMenu.classList.toggle("hidden");
+        mobileMenu.classList.toggle("active");
+      }
+    </script>
+    <!-- 主横幅 -->
+    <div class="relative pt-20 overflow-hidden">
+      <!-- 添加背景装饰元素 -->
+      <div class="absolute top-0 left-0 w-full h-full">
+        <div
+          class="absolute top-10 left-20 w-80 h-80 bg-purple-100 rounded-full mix-blend-multiply filter blur-2xl opacity-60 animate-pulse"
+        ></div>
+        <div
+          class="absolute top-60 right-20 w-96 h-96 bg-indigo-100 rounded-full mix-blend-multiply filter blur-2xl opacity-60 animate-pulse animation-delay-1000"
+        ></div>
+        <div
+          class="absolute -bottom-20 left-40 w-72 h-72 bg-cyan-100 rounded-full mix-blend-multiply filter blur-2xl opacity-60 animate-pulse animation-delay-2000"
+        ></div>
+        <div
+          class="absolute top-40 right-40 w-64 h-64 bg-rose-100 rounded-full mix-blend-multiply filter blur-2xl opacity-60 animate-pulse animation-delay-3000"
+        ></div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-4 py-8 md:py-32">
+        <div
+          class="flex flex-col md:flex-row items-center justify-between animate__animated animate__fadeIn"
+        >
+          <div class="w-full md:w-1/2 text-center md:text-left relative z-10">
+            <h2
+              class="text-2xl md:text-5xl font-extrabold text-gray-900 mb-6 md:mb-8 animate__animated animate__fadeInDown leading-tight tracking-tight relative"
+            >
+              <span class="relative">
+                心随你动，让支付更便捷
+                <span class="absolute -top-2 -right-4 w-6 h-6">
+                  <svg
+                    class="animate-spin text-yellow-300"
+                    fill="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                    ></path>
+                  </svg>
+                </span>
+                <span class="absolute -bottom-1 -left-3 w-5 h-5">
+                  <svg
+                    class="text-blue-300 animate-bounce"
+                    fill="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                  </svg>
+                </span>
+              </span>
+            </h2>
+            <br />
+            <br />
+            <p
+              class="text-sm md:text-lg text-gray-500 animate__animated animate__fadeInUp opacity-90 leading-relaxed px-4 md:px-0 tracking-wider flex items-center hover:bg-blue-500/10 rounded-lg p-4 transition-all duration-300"
+            >
+              <span class="text-yellow-300 mr-2 animate-pulse">🚀</span>
+              无需营业执照，一键极速开通多种主流支付接口
+              <span class="ml-2 text-blue-200">✨</span>
+            </p>
+            <div class="flex flex-col space-y-4">
+              <p
+                class="text-sm md:text-lg text-gray-600 animate__animated animate__fadeInUp opacity-90 leading-relaxed px-4 md:px-0 tracking-wider flex items-center hover:bg-blue-500/10 rounded-lg p-4 transition-all duration-300"
+              >
+                <span class="text-yellow-300 mr-2 animate-pulse">💳</span>
+                收款秒到账，支持微信/支付宝/QQ/银联等多种方式
+                <span class="ml-2 text-blue-200">⚡</span>
+              </p>
+              <p
+                class="text-sm md:text-lg text-gray-600 animate__animated animate__fadeInUp opacity-90 leading-relaxed px-4 md:px-0 tracking-wider flex items-center hover:bg-blue-500/10 rounded-lg p-4 transition-all duration-300"
+              >
+                <span class="text-green-300 mr-2 animate-pulse">🔒</span>
+                高并发处理，无限API调用，确保交易安全
+                <span class="ml-2 text-blue-200">🛡️</span>
+              </p>
+            </div>
+            <div
+              class="mt-8 md:mt-12 flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 px-4 md:px-0"
+            >
+              <div
+                class="bg-blue-200 p-2 md:p-3 rounded-xl w-24 md:w-32 transform hover:scale-105 transition-all duration-300"
+              >
+                <p
+                  class="text-base md:text-lg text-gray-700 text-center font-medium"
+                >
+                  支付宝
+                </p>
+              </div>
+              <div
+                class="bg-green-200 p-2 md:p-3 rounded-xl w-24 md:w-32 transform hover:scale-105 transition-all duration-300"
+              >
+                <p
+                  class="text-base md:text-lg text-gray-700 text-center font-medium"
+                >
+                  微信
+                </p>
+              </div>
+              <div
+                class="bg-yellow-200 p-2 md:p-3 rounded-xl w-24 md:w-32 transform hover:scale-105 transition-all duration-300"
+              >
+                <p
+                  class="text-base md:text-lg text-gray-700 text-center font-medium"
+                >
+                  QQ钱包
+                </p>
+              </div>
+              <div
+                class="bg-red-200 p-2 md:p-3 rounded-xl w-24 md:w-32 transform hover:scale-105 transition-all duration-300"
+              >
+                <p
+                  class="text-base md:text-lg text-gray-700 text-center font-medium"
+                >
+                  银联
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="w-full md:w-2/5 mt-8 md:mt-0 animate__animated animate__fadeInRight px-4 md:px-0"
+          >
+            <div class="bg-white rounded-2xl shadow-xl">
+              <div class="text-center">
+                <img src="${"web_logo" | get_option}" alt="Logo"
+                class="rounded-2xl" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;padding: 20px">
+              </div>
+              <div class="space-y-4 md:space-y-6 p-6 md:p-10">
+                <a
+                  href="/register"
+                  class="block w-full px-6 md:px-8 py-4 md:py-5 rounded-lg bg-blue-600 text-white text-base md:text-lg font-semibold hover:bg-blue-700 transition-all duration-300 text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                >
+                  <span class="flex items-center justify-center relative z-10">
+                    <svg
+                      class="w-5 md:w-6 h-5 md:h-6 mr-2 md:mr-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewbox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"
+                      ></path>
+                    </svg>
+                    立即注册
+                  </span>
+                </a>
+                <a
+                  href="/login"
+                  class="block w-full px-6 md:px-8 py-4 md:py-5 rounded-lg bg-blue-600 text-white text-base md:text-lg font-semibold hover:bg-blue-700 transition-all duration-300 text-center shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                >
+                  <span class="flex items-center justify-center relative z-10">
+                    <svg
+                      class="w-5 md:w-6 h-5 md:h-6 mr-2 md:mr-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewbox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                      ></path>
+                    </svg>
+                    后台登入
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 快速资金结算 -->
+    <div class="bg-gradient-to-b from-gray-50 to-white py-24">
+      <div class="max-w-7xl mx-auto px-4">
+        <h2
+          class="text-4xl font-bold text-center mb-16 flex items-center justify-center"
+        >
+          <svg
+            class="w-10 h-10 text-blue-600 mr-3"
+            fill="none"
+            stroke="currentColor"
+            viewbox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path>
+          </svg>
+          <span
+            class="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600"
+          >
+            快速资金结算
+          </span>
+        </h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div
+            class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 border border-gray-100"
+          >
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 transform rotate-3 hover:rotate-6 transition-transform duration-300"
+            >
+              <svg
+                class="w-10 h-10 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 text-center text-gray-800">
+              实时到账
+            </h3>
+            <p class="text-gray-600 text-center leading-relaxed">
+              资金更安全更便捷，快速结算到您的账户
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 border border-gray-100"
+          >
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 transform -rotate-3 hover:-rotate-6 transition-transform duration-300"
+            >
+              <svg
+                class="w-10 h-10 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 text-center text-gray-800">
+              多通道支持
+            </h3>
+            <p class="text-gray-600 text-center leading-relaxed">
+              支持各大主流支付平台，满足多样化需求
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 border border-gray-100"
+          >
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 transform rotate-3 hover:rotate-6 transition-transform duration-300"
+            >
+              <svg
+                class="w-10 h-10 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 text-center text-gray-800">
+              安全稳定
+            </h3>
+            <p class="text-gray-600 text-center leading-relaxed">
+              采用银行级加密技术，保障交易安全
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500 border border-gray-100"
+          >
+            <div
+              class="w-20 h-20 bg-gradient-to-br from-red-400 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-6 transform -rotate-3 hover:-rotate-6 transition-transform duration-300"
+            >
+              <svg
+                class="w-10 h-10 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-4 text-center text-gray-800">
+              全天候服务
+            </h3>
+            <p class="text-gray-600 text-center leading-relaxed">
+              专业团队7*24小时在线为您服务
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 优势展示 -->
+    <div class="max-w-7xl mx-auto px-4 py-24">
+      <h2 class="text-4xl font-bold text-center mb-16 relative">
+        <span
+          class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600"
+        >
+          主流支付接口
+        </span>
+        <div
+          class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-purple-600 via-pink-500 to-red-500"
+        ></div>
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+          class="group relative bg-white rounded-3xl p-8 hover:bg-gradient-to-br from-purple-50 to-pink-50 transition-all duration-500 transform hover:-translate-y-2"
+        >
+          <div
+            class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-purple-400 to-pink-400 rounded-bl-full opacity-10 group-hover:opacity-20 transition-opacity"
+          ></div>
+          <div class="relative">
+            <div
+              class="w-14 h-14 mb-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center transform -rotate-6 group-hover:rotate-0 transition-transform"
+            >
+              <svg
+                class="w-7 h-7 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-800">微信支付</h3>
+            <p class="text-gray-600">轻松、方便、快捷实现移动支付的接入</p>
+          </div>
+        </div>
+
+        <div
+          class="group relative bg-white rounded-3xl p-8 hover:bg-gradient-to-br from-blue-50 to-cyan-50 transition-all duration-500 transform hover:-translate-y-2"
+        >
+          <div
+            class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-bl-full opacity-10 group-hover:opacity-20 transition-opacity"
+          ></div>
+          <div class="relative">
+            <div
+              class="w-14 h-14 mb-6 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center transform rotate-6 group-hover:rotate-0 transition-transform"
+            >
+              <svg
+                class="w-7 h-7 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-800">支付宝支付</h3>
+            <p class="text-gray-600">轻松、方便、快捷实现移动支付的接入</p>
+          </div>
+        </div>
+
+        <div
+          class="group relative bg-white rounded-3xl p-8 hover:bg-gradient-to-br from-green-50 to-emerald-50 transition-all duration-500 transform hover:-translate-y-2"
+        >
+          <div
+            class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-400 rounded-bl-full opacity-10 group-hover:opacity-20 transition-opacity"
+          ></div>
+          <div class="relative">
+            <div
+              class="w-14 h-14 mb-6 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center transform -rotate-6 group-hover:rotate-0 transition-transform"
+            >
+              <svg
+                class="w-7 h-7 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-800">QQ支付</h3>
+            <p class="text-gray-600">链接商户和支付通道。不介入资金清分</p>
+          </div>
+        </div>
+
+        <div
+          class="group relative bg-white rounded-3xl p-8 hover:bg-gradient-to-br from-blue-50 to-cyan-50 transition-all duration-500 transform hover:-translate-y-2"
+        >
+          <div
+            class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-400 to-cyan-400 rounded-bl-full opacity-10 group-hover:opacity-20 transition-opacity"
+          ></div>
+          <div class="relative">
+            <div
+              class="w-14 h-14 mb-6 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center transform rotate-6 group-hover:rotate-0 transition-transform"
+            >
+              <svg
+                class="w-7 h-7 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-800">二维码收款</h3>
+            <p class="text-gray-600">手机扫描二维码以绑定支付方式</p>
+          </div>
+        </div>
+
+        <div
+          class="group relative bg-white rounded-3xl p-8 hover:bg-gradient-to-br from-red-50 to-rose-50 transition-all duration-500 transform hover:-translate-y-2"
+        >
+          <div
+            class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-red-400 to-rose-400 rounded-bl-full opacity-10 group-hover:opacity-20 transition-opacity"
+          ></div>
+          <div class="relative">
+            <div
+              class="w-14 h-14 mb-6 bg-gradient-to-br from-red-500 to-rose-500 rounded-2xl flex items-center justify-center transform -rotate-6 group-hover:rotate-0 transition-transform"
+            >
+              <svg
+                class="w-7 h-7 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-800">个人码收款</h3>
+            <p class="text-gray-600">一站式开通主流电子钱包的二维易支付</p>
+          </div>
+        </div>
+
+        <div
+          class="group relative bg-white rounded-3xl p-8 hover:bg-gradient-to-br from-indigo-50 to-violet-50 transition-all duration-500 transform hover:-translate-y-2"
+        >
+          <div
+            class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-indigo-400 to-violet-400 rounded-bl-full opacity-10 group-hover:opacity-20 transition-opacity"
+          ></div>
+          <div class="relative">
+            <div
+              class="w-14 h-14 mb-6 bg-gradient-to-br from-indigo-500 to-violet-500 rounded-2xl flex items-center justify-center transform rotate-6 group-hover:rotate-0 transition-transform"
+            >
+              <svg
+                class="w-7 h-7 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-800">商家码收款</h3>
+            <p class="text-gray-600">支持多商户轮训，提升顾客付款效率</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 行业解决方案 -->
+    <div class="max-w-7xl mx-auto px-4 py-24 bg-gray-50">
+      <h2 class="text-4xl font-bold text-center mb-4">行业解决方案</h2>
+      <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto">
+        专业支持合规电商，游戏，动漫，社交等多种数娱行业
+      </p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <!-- 电商解决方案 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-orange-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">电商支付</h3>
+          <ul class="space-y-3 text-gray-600">
+            <li>· 支持主流支付渠道，实时到账</li>
+            <li>· 订单管理和营销分账一体化</li>
+            <li>· 资金流转安全高效</li>
+          </ul>
+        </div>
+
+        <!-- 游戏解决方案 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-blue-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">游戏支付</h3>
+          <ul class="space-y-3 text-gray-600">
+            <li>· 支持多种渠道，实时到账</li>
+            <li>· 手游、端游、页游一网打尽</li>
+            <li>· 提供安全、便捷的支付方案</li>
+          </ul>
+        </div>
+
+        <!-- 社交解决方案 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-purple-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">社交支付</h3>
+          <ul class="space-y-3 text-gray-600">
+            <li>· 全自动结算结佣实时到账</li>
+            <li>· 接口接入简单轻松</li>
+            <li>· 覆盖直播社交，公会社交</li>
+          </ul>
+        </div>
+
+        <!-- 动漫解决方案 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-pink-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">动漫支付</h3>
+          <ul class="space-y-3 text-gray-600">
+            <li>· 支付接入门槛低</li>
+            <li>· 到账速度实时及次日可选</li>
+            <li>· 覆盖网文小说，动漫文章</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 我们能解决的问题 -->
+    <div class="max-w-7xl mx-auto px-4 py-24 bg-gray-50">
+      <h2 class="text-4xl font-bold text-center mb-4">我们能解决的问题</h2>
+      <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto">
+        为您提供全方位的支付解决方案，解决各类支付难题
+      </p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 个人收款 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-indigo-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">个人收款</h3>
+          <p class="text-gray-600">支持主流支付渠道，实时到账</p>
+        </div>
+
+        <!-- 资金安全 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">资金安全保障</h3>
+          <p class="text-gray-600">采用多重安全机制，保障资金安全，交易透明</p>
+        </div>
+
+        <!-- 接口文档 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-yellow-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">专业接口文档</h3>
+          <p class="text-gray-600">提供多语言详细接口文档，快速实现系统对接</p>
+        </div>
+
+        <!-- 便捷接入 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-blue-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">开户便捷</h3>
+          <p class="text-gray-600">接入流程简单快速，最快当天即可完成接入</p>
+        </div>
+
+        <!-- 合规分账 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-red-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">购物车合规分账</h3>
+          <p class="text-gray-600">支持多商户自动分账，交易更加透明规范</p>
+        </div>
+
+        <!-- 营销方案 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-purple-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">营销促销方案</h3>
+          <p class="text-gray-600">提供多样化营销工具，帮助商家提升转化率</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 业务模板 -->
+    <div class="max-w-7xl mx-auto px-4 py-24">
+      <h2 class="text-4xl font-bold text-center mb-4">业务模板</h2>
+      <div class="grid md:grid-cols-3 gap-8 mt-16">
+        <!-- 聚合支付 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-indigo-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">聚合支付</h3>
+          <p class="text-gray-600 mb-2">
+            线上接口支付，提供包括支付宝 微信 银联等三方的支付通道
+          </p>
+          <p class="text-gray-600">
+            线下聚合服务，依靠强有力的渠道资源 推广线下聚合支付服务更多商家
+          </p>
+        </div>
+
+        <!-- 三方开发 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">三方开发</h3>
+          <p class="text-gray-600 mb-2">
+            专业的服务团队致力于小程序，PC商城，移动端应用等
+          </p>
+          <p class="text-gray-600">
+            为企业革新，提供完美的解决方案助力其向信息化、数字化转型
+          </p>
+        </div>
+
+        <!-- Steam端口对接 -->
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-pink-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">Steam端口对接</h3>
+          <p class="text-gray-600 mb-2">
+            steam游戏生态制作 发行 宣发 推广 接口对接等一站式服务，
+          </p>
+          <p class="text-gray-600">
+            以技术为核心为生态下更多的客户提供优质服务。
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- 虚拟商品 -->
+    <div class="max-w-7xl mx-auto px-4 py-24">
+      <h2 class="text-4xl font-bold text-center mb-4">虚拟商品</h2>
+      <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto">
+        为您提供多种虚拟商品支付解决方案
+      </p>
+      <div class="grid md:grid-cols-4 gap-8">
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-purple-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">软件注册码</h3>
+          <p class="text-gray-600">支持软件授权、激活码等自动发货</p>
+        </div>
+
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-blue-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">论坛账号</h3>
+          <p class="text-gray-600">支持论坛会员、VIP账号等交易</p>
+        </div>
+
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">卡密商品</h3>
+          <p class="text-gray-600">支持充值卡、游戏点卡等自动发货</p>
+        </div>
+
+        <div
+          class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+        >
+          <div
+            class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mb-6"
+          >
+            <svg
+              class="w-8 h-8 text-red-600"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-4">即时服务</h3>
+          <p class="text-gray-600">支持在线咨询、技术支持等服务</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 平台优势 -->
+    <div class="max-w-7xl mx-auto px-4 py-24">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="text-4xl font-bold mb-6">让虚拟商品交易更简单安全</h2>
+          <p class="text-gray-600 mb-8 text-lg">
+            专业的虚拟商品交易平台，为您提供一站式解决方案
+          </p>
+          <div class="space-y-6">
+            <div class="flex items-start">
+              <div class="bg-green-100 p-2 rounded-lg mr-4">
+                <svg
+                  class="w-6 h-6 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold mb-2">超简入驻流程，实时结算</h3>
+                <p class="text-gray-600">低门槛快速入驻，资金自动结算</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="bg-green-100 p-2 rounded-lg mr-4">
+                <svg
+                  class="w-6 h-6 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold mb-2">支持微信实时推送</h3>
+                <p class="text-gray-600">订单、售卡、投诉等消息实时通知</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="bg-green-100 p-2 rounded-lg mr-4">
+                <svg
+                  class="w-6 h-6 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold mb-2">AI智能防护</h3>
+                <p class="text-gray-600">
+                  识别拦截DDOS、CC攻击，全网最长运营，无差评
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-xl">
+          <div class="space-y-8">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                <div class="text-2xl font-bold text-blue-600 mb-2">2000+</div>
+                <p class="text-gray-600">活跃商户</p>
+              </div>
+              <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                <div class="text-2xl font-bold text-purple-600 mb-2">99.9%</div>
+                <p class="text-gray-600">系统稳定性</p>
+              </div>
+              <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                <div class="text-2xl font-bold text-green-600 mb-2">24h</div>
+                <p class="text-gray-600">技术支持</p>
+              </div>
+              <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                <div class="text-2xl font-bold text-orange-600 mb-2">秒级</div>
+                <p class="text-gray-600">订单处理</p>
+              </div>
+            </div>
+            <div class="bg-white p-8 rounded-lg shadow-sm">
+              <h4 class="text-2xl font-bold text-blue-600 mb-6 text-center">
+                为什么选择我们
+              </h4>
+              <div class="space-y-6">
+                <div class="flex items-center space-x-4">
+                  <div class="bg-blue-100 p-2 rounded-lg">
+                    <svg
+                      class="w-6 h-6 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewbox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h5 class="font-bold mb-1">安全可靠的技术保障</h5>
+                    <p class="text-gray-600">
+                      专业团队7x24小时维护，确保系统稳定运行
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                  <div class="bg-purple-100 p-2 rounded-lg">
+                    <svg
+                      class="w-6 h-6 text-purple-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewbox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h5 class="font-bold mb-1">资金安全有保障</h5>
+                    <p class="text-gray-600">
+                      多重安全机制，保障每笔交易安全无忧
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                  <div class="bg-green-100 p-2 rounded-lg">
+                    <svg
+                      class="w-6 h-6 text-green-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewbox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h5 class="font-bold mb-1">快速响应服务</h5>
+                    <p class="text-gray-600">
+                      专业客服团队，为您提供即时支持服务
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-8 py-24">
+      <div class="grid md:grid-cols-2 gap-24 items-center">
+        <div class="bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-xl">
+          <div class="space-y-8">
+            <div class="text-center mb-8">
+              <div class="text-4xl font-bold text-blue-600 mb-4">商户平台</div>
+              <p class="text-gray-600">专业可靠的支付服务商</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                <div class="text-2xl font-bold text-blue-600 mb-2">5000+</div>
+                <p class="text-gray-600">活跃商户</p>
+              </div>
+              <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                <div class="text-2xl font-bold text-purple-600 mb-2">99.9%</div>
+                <p class="text-gray-600">系统稳定性</p>
+              </div>
+              <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                <div class="text-2xl font-bold text-green-600 mb-2">24h</div>
+                <p class="text-gray-600">技术支持</p>
+              </div>
+              <div class="bg-white p-4 rounded-lg shadow-sm text-center">
+                <div class="text-2xl font-bold text-orange-600 mb-2">秒级</div>
+                <p class="text-gray-600">订单处理</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h2 class="text-4xl font-bold mb-6">商户平台</h2>
+          <p class="text-gray-600 mb-8 text-lg">
+            一键注册成为商户，享受全自动化交易体验
+          </p>
+          <div class="space-y-6">
+            <div class="flex items-start">
+              <div class="bg-blue-100 p-2 rounded-lg mr-4">
+                <svg
+                  class="w-6 h-6 text-blue-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold mb-2">全新UI界面设计</h3>
+                <p class="text-gray-600">商户后台全新改版，操作更加简单直观</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="bg-blue-100 p-2 rounded-lg mr-4">
+                <svg
+                  class="w-6 h-6 text-blue-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold mb-2">一键快捷操作</h3>
+                <p class="text-gray-600">
+                  支持批量上传卡密、一键补货、自动发货等功能
+                </p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="bg-blue-100 p-2 rounded-lg mr-4">
+                <svg
+                  class="w-6 h-6 text-blue-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold mb-2">多种商品支持</h3>
+                <p class="text-gray-600">
+                  支持软件注册码、游戏账号、虚拟商品卡密等多种类型
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 使用步骤 -->
+    <div class="bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 py-24">
+        <h2 class="text-4xl font-bold text-center mb-4">三步使用平台</h2>
+        <p class="text-gray-600 text-center mb-16">
+          超简入驻流程，低门槛，加入销售网，即刻赚钱
+        </p>
+
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+            <div
+              class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6"
+            >
+              <span class="text-2xl font-bold text-blue-600">01</span>
+            </div>
+            <h3 class="text-xl font-bold mb-4">注册账号</h3>
+            <p class="text-gray-600">注册账号，添加通道</p>
+          </div>
+
+          <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+            <div
+              class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6"
+            >
+              <span class="text-2xl font-bold text-blue-600">02</span>
+            </div>
+            <h3 class="text-xl font-bold mb-4">支付对接</h3>
+            <p class="text-gray-600">添加支付通道，完成对接</p>
+          </div>
+
+          <div class="bg-white p-8 rounded-xl shadow-lg text-center">
+            <div
+              class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6"
+            >
+              <span class="text-2xl font-bold text-blue-600">03</span>
+            </div>
+            <h3 class="text-xl font-bold mb-4">调试上线</h3>
+            <p class="text-gray-600">调试上线，完成测试</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 核心优势 -->
+    <div class="max-w-7xl mx-auto px-4 py-24">
+      <h2 class="text-4xl font-bold text-center mb-4">为什么选择我们</h2>
+      <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto">
+        我们拥有专业的技术团队和丰富的行业经验，为您提供最优质的支付解决方案
+      </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div
+          class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+        >
+          <div
+            class="bg-blue-500 w-14 h-14 rounded-lg flex items-center justify-center mb-6 transform -rotate-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">兼容优化好</h3>
+          <p class="text-gray-600 leading-relaxed">
+            快速接入，简单配置，支持多种开发语言和框架
+          </p>
+        </div>
+
+        <div
+          class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+        >
+          <div
+            class="bg-green-500 w-14 h-14 rounded-lg flex items-center justify-center mb-6 transform -rotate-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">稳定不漏单</h3>
+          <p class="text-gray-600 leading-relaxed">
+            先进的订单系统，确保交易安全可靠
+          </p>
+        </div>
+
+        <div
+          class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+        >
+          <div
+            class="bg-purple-500 w-14 h-14 rounded-lg flex items-center justify-center mb-6 transform -rotate-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">免挂机服务</h3>
+          <p class="text-gray-600 leading-relaxed">
+            云端自动化处理，无需人工值守
+          </p>
+        </div>
+        <div
+          class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+        >
+          <div
+            class="bg-green-500 w-14 h-14 rounded-lg flex items-center justify-center mb-6 transform -rotate-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 13l4 4L19 7"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">丰富的经验</h3>
+          <p class="text-gray-600 leading-relaxed">
+            核心团队拥有多年支付行业经验
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 选购方案 -->
+    <div class="max-w-7xl mx-auto px-4 py-24">
+      <h2 class="text-4xl font-bold text-center mb-4">选择您的方案</h2>
+      <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto">
+        我们提供多种合作方式，满足您不同的业务需求
+      </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div
+          class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+        >
+          <div
+            class="bg-blue-500 w-14 h-14 rounded-lg flex items-center justify-center mb-6 transform -rotate-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">购买产品/服务</h3>
+          <p class="text-gray-600 leading-relaxed">选购我们的产品或服务</p>
+        </div>
+
+        <div
+          class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+        >
+          <div
+            class="bg-green-500 w-14 h-14 rounded-lg flex items-center justify-center mb-6 transform -rotate-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">购买源码</h3>
+          <p class="text-gray-600 leading-relaxed">
+            获取同款源码，搭建独立支付系统
+          </p>
+        </div>
+
+        <div
+          class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+        >
+          <div
+            class="bg-purple-500 w-14 h-14 rounded-lg flex items-center justify-center mb-6 transform -rotate-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">成为商户</h3>
+          <p class="text-gray-600 leading-relaxed">
+            注册商户账号，享受更优惠的支付通道费率
+          </p>
+        </div>
+
+        <div
+          class="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+        >
+          <div
+            class="bg-yellow-500 w-14 h-14 rounded-lg flex items-center justify-center mb-6 transform -rotate-6"
+          >
+            <svg
+              class="w-8 h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-gray-800">成为代理商</h3>
+          <p class="text-gray-600 leading-relaxed">
+            加入系统代理计划，赚取支付通道费率佣金
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 介绍 -->
+    <div class="max-w-7xl mx-auto px-4 py-24">
+      <div class="flex flex-col lg:flex-row items-center gap-16">
+        <div class="lg:w-1/2">
+          <div class="bg-white rounded-2xl shadow-xl p-8">
+            <h3 class="text-2xl font-bold mb-6">功能亮点</h3>
+            <div class="grid gap-4">
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span class="text-gray-700"
+                  >轻量级，高并发，多重防掉单协议，拒绝掉单！</span
+                >
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span class="text-gray-700">自研微信PC免输自挂软件！</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span class="text-gray-700"
+                  >自研微信免输免挂过IP检测非IMAC云端，无封号风险！</span
+                >
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span class="text-gray-700"
+                  >自研三网同系统相互对接（各地站长几百对接）</span
+                >
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span class="text-gray-700"
+                  >无门槛微信公众号通知，通知更及时！</span
+                >
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span class="text-gray-700"
+                  >自研内置三网互联登录，无门槛即可扫码登录！</span
+                >
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span class="text-gray-700"
+                  >自研GO自动监控，无需设置计划任务！</span
+                >
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span class="text-gray-700"
+                  >实时检测账号收款状态，自动轮训通道！</span
+                >
+              </div>
+              <div class="flex items-center space-x-3">
+                <svg
+                  class="w-5 h-5 text-green-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span class="text-gray-700"
+                  >自研最新免挂协议，无封号无风控，轻松免挂在线几个月！</span
+                >
+              </div>
+            </div>
+            <!-- <div class="mt-8">
+                           <a href="/register" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                               立即体验
+                               <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                               </svg>
+                           </a>
+                       </div> -->
+          </div>
+        </div>
+        <div class="lg:w-1/2">
+          <h2
+            class="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+          >
+            系统介绍
+          </h2>
+          <p
+            class="text-gray-600 text-base mb-8 leading-loose relative font-medium p-6 rounded-xl"
+          >
+            <span
+              class="absolute -left-4 top-0 text-blue-500 text-5xl font-serif"
+              >"</span
+            >
+            ${"web_title" |
+            get_option}是一款专为个人站长与企业用户量身定制的新一代聚合支付解决方案。
+            <br /><br />
+            我们以创新的技术架构、人性化的操作体验、全方位的功能支持为核心，致力于为您提供最优质的支付服务。
+            <br /><br />
+            极致的性能体验，完善的安全保障，专业的技术支持
+            <br /><br />
+            持续创新的产品理念，不断进化的系统功能，始终走在行业前沿。
+            <br />
+            依托多年支付行业经验，我们的专业团队将为您提供最可靠的技术支持与服务保障。用心铸就品质，专注成就卓越！
+            <span
+              class="absolute -right-4 bottom-0 text-blue-500 text-5xl font-serif rotate-180"
+              >"</span
+            >
+          </p>
+          <!--<div class="flex gap-4">-->
+          <!--  <a-->
+          <!--    href="/register"-->
+          <!--    class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"-->
+          <!--  >-->
+          <!--    立即注册-->
+          <!--    <svg-->
+          <!--      class="w-5 h-5 ml-2"-->
+          <!--      fill="none"-->
+          <!--      stroke="currentColor"-->
+          <!--      viewbox="0 0 24 24"-->
+          <!--    >-->
+          <!--      <path-->
+          <!--        stroke-linecap="round"-->
+          <!--        stroke-linejoin="round"-->
+          <!--        stroke-width="2"-->
+          <!--        d="M17 8l4 4m0 0l-4 4m4-4H3"-->
+          <!--      ></path>-->
+          <!--    </svg>-->
+          <!--  </a>-->
+          <!--  <a-->
+          <!--    href="/user"-->
+          <!--    class="inline-flex items-center px-6 py-3 border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors"-->
+          <!--  >-->
+          <!--    商户中心-->
+          <!--    <svg-->
+          <!--      class="w-5 h-5 ml-2"-->
+          <!--      fill="none"-->
+          <!--      stroke="currentColor"-->
+          <!--      viewbox="0 0 24 24"-->
+          <!--    >-->
+          <!--      <path-->
+          <!--        stroke-linecap="round"-->
+          <!--        stroke-linejoin="round"-->
+          <!--        stroke-width="2"-->
+          <!--        d="M13 7l5 5m0 0l-5 5m5-5H6"-->
+          <!--      ></path>-->
+          <!--    </svg>-->
+          <!--  </a>-->
+          <!--</div>-->
+        </div>
+      </div>
+    </div>
+
+    <!-- SDK介绍 -->
+    <div class="bg-gray-50 py-24">
+      <div class="max-w-7xl mx-auto px-4">
+        <div
+          class="flex flex-col md:flex-row items-center justify-between gap-12"
+        >
+          <div class="md:w-1/2">
+            <h2 class="text-4xl font-bold mb-6">一站式支付接口解决方案</h2>
+            <p class="text-gray-600 text-lg mb-8">
+              无需寻找想要的支付通道、无需重复对接集成繁琐的支付接口，一个接口即可搞定所有支付需求。
+            </p>
+            <div class="flex gap-4">
+              <a
+                href="/register"
+                class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                立即注册
+                <svg
+                  class="w-5 h-5 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  ></path>
+                </svg>
+              </a>
+              <a
+                href="/user"
+                class="inline-flex items-center px-6 py-3 border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors"
+              >
+                商户中心
+              </a>
+            </div>
+          </div>
+          <div class="md:w-1/2">
+            <div class="bg-white p-8 rounded-2xl shadow-xl">
+              <div class="grid grid-cols-2 gap-6">
+                <div class="flex items-start space-x-4">
+                  <div class="bg-blue-100 p-3 rounded-lg">
+                    <svg
+                      class="w-6 h-6 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewbox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold mb-1">快速接入</h4>
+                    <p class="text-sm text-gray-600">5分钟完成接入</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                  <div class="bg-green-100 p-3 rounded-lg">
+                    <svg
+                      class="w-6 h-6 text-green-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewbox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold mb-1">安全可靠</h4>
+                    <p class="text-sm text-gray-600">数据加密传输</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                  <div class="bg-purple-100 p-3 rounded-lg">
+                    <svg
+                      class="w-6 h-6 text-purple-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewbox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold mb-1">高效稳定</h4>
+                    <p class="text-sm text-gray-600">99.99%可用性</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                  <div class="bg-orange-100 p-3 rounded-lg">
+                    <svg
+                      class="w-6 h-6 text-orange-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewbox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                      ></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold mb-1">实时监控</h4>
+                    <p class="text-sm text-gray-600">交易数据实时掌握</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 会员套餐 -->
+    <!-- <div class="bg-white py-12 md:py-20" id="dj">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-10 md:mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
+            会员套餐
+          </h2>
+          <p class="text-base md:text-lg text-gray-600">
+            选择最适合您的会员套餐，开启支付新体验
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div
+            class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          >
+            <div class="p-8">
+              <div class="text-center">
+                <span
+                  class="inline-block px-4 py-1 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold mb-4"
+                  >推荐</span
+                >
+                <h3 class="text-2xl font-bold mb-2">月费会员</h3>
+                <div class="flex justify-center items-baseline mb-4">
+                  <span class="text-4xl font-bold">$5.36</span>
+                  <span class="text-gray-500 ml-1">/30天</span>
+                </div>
+                <div class="text-gray-600 mb-6">
+                  <p>套餐限购：不限制</p>
+                  <p>订单费率：0.00%</p>
+                  <p>挂机配额：3个</p>
+                </div>
+              </div>
+              <div class="space-y-3">
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path></svg
+                  >多通道无限制
+                </div>
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path></svg
+                  >多渠道接入
+                </div>
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path></svg
+                  >标准豁免
+                </div>
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-red-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    ></path></svg
+                  >享优先服务
+                </div>
+              </div>
+              <a
+                href="/User/Login/Reg"
+                class="block w-full mt-8 bg-blue-600 text-white rounded-lg py-3 font-semibold hover:bg-blue-700 transition-colors text-center"
+                >查看详情</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          >
+            <div class="p-8">
+              <div class="text-center">
+                <span
+                  class="inline-block px-4 py-1 rounded-full bg-purple-100 text-purple-600 text-sm font-semibold mb-4"
+                  >推荐</span
+                >
+                <h3 class="text-2xl font-bold mb-2">季度会员</h3>
+                <div class="flex justify-center items-baseline mb-4">
+                  <span class="text-4xl font-bold">$13.66</span>
+                  <span class="text-gray-500 ml-1">/90天</span>
+                </div>
+                <div class="text-gray-600 mb-6">
+                  <p>套餐限购：不限制</p>
+                  <p>订单费率：0.00%</p>
+                  <p>挂机配额：3个</p>
+                </div>
+              </div>
+              <div class="space-y-3">
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path></svg
+                  >多通道无限制
+                </div>
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path></svg
+                  >多渠道接入
+                </div>
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path></svg
+                  >标准豁免
+                </div>
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path></svg
+                  >享优先服务
+                </div>
+              </div>
+              <a
+                href="/User/Login/Reg"
+                class="block w-full mt-8 bg-purple-600 text-white rounded-lg py-3 font-semibold hover:bg-purple-700 transition-colors text-center"
+                >查看详情</a
+              >
+            </div>
+          </div>
+
+          <div
+            class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+          >
+            <div class="p-8">
+              <div class="text-center">
+                <span
+                  class="inline-block px-4 py-1 rounded-full bg-green-100 text-green-600 text-sm font-semibold mb-4"
+                  >推荐</span
+                >
+                <h3 class="text-2xl font-bold mb-2">年度会员</h3>
+                <div class="flex justify-center items-baseline mb-4">
+                  <span class="text-4xl font-bold">$50.99</span>
+                  <span class="text-gray-500 ml-1">/365天</span>
+                </div>
+                <div class="text-gray-600 mb-6">
+                  <p>套餐限购：不限制</p>
+                  <p>订单费率：0.00%</p>
+                  <p>挂机配额：5个</p>
+                </div>
+              </div>
+              <div class="space-y-3">
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path></svg
+                  >全部高级功能
+                </div>
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path></svg
+                  >享7×27小时服务
+                </div>
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path></svg
+                  >审查拦截豁免
+                </div>
+                <div class="flex items-center">
+                  <svg
+                    class="w-5 h-5 text-green-500 mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    ></path></svg
+                  >全部特权功能
+                </div>
+              </div>
+              <a
+                href="/User/Login/Reg"
+                class="block w-full mt-8 bg-green-600 text-white rounded-lg py-3 font-semibold hover:bg-green-700 transition-colors text-center"
+                >查看详情</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- 网站资讯 -->
+    <!-- <div class="bg-white py-16 md:py-24" id="gg">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12 md:mb-20">
+          <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
+            网站资讯
+          </h2>
+          <p class="text-lg md:text-xl text-gray-600">最新系统动态与使用说明</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl mx-auto">
+          <div
+            class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8"
+          >
+            <div class="flex items-center mb-6">
+              <div class="bg-blue-200 p-3 rounded-full mr-4">
+                <svg
+                  class="w-6 h-6 text-blue-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-900">站长公告</h3>
+            </div>
+            <div
+              class="bg-white rounded-xl p-6 shadow-sm h-[460px]"
+              data-simplebar
+            >
+              <div class="flex items-center mb-4">
+                <img
+                  class="w-10 h-10 rounded-full mr-4"
+                  src="${.templateAssets}/images/headimg_dl.jpg"
+                  alt="管理员头像"
+                />
+                <div>
+                  <p class="font-semibold">站长说</p>
+                  <p class="text-sm text-gray-500">1小时前</p>
+                </div>
+              </div>
+              <div class="prose prose-blue max-w-none">
+                <style>
+                  body {
+                    font-family: inherit;
+                    /* 使用默认字体 */
+                    font-style: normal;
+                    /* 设置字体为正常 */
+                  }
+                </style>
+
+                <div style="font-style: normal">
+                  1. 系统采用全新的 speedPHP 框架开发，<br />
+                  2. 使用多线程 CURL 检测账单回调，<br />
+                  3. 相比其它码系统效率提高上百倍不止，<br />
+                  4. 多种支付最新协议以及出色的云端技术，<br />
+                  5. 和三重防掉单技术，让你的使用更加舒适。<br />
+                  6. 仅限个人收款正规使用，禁止违法违规。<br />
+                  拥有独家三网免挂，可完全放心使用，<br />
+                  提供技术支持远程协助您使用对接，当您还在犹豫不决的时候，大佬早就已经开始在使用了！<br />
+                  禁止使用代收功能，发现使用代收功能代收的余额只能用于开通会员或者充值额度！
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 p-8"
+          >
+            <div class="flex items-center mb-6">
+              <div class="bg-green-200 p-3 rounded-full mr-4">
+                <svg
+                  class="w-6 h-6 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-900">使用帮助</h3>
+            </div>
+            <div
+              class="bg-white rounded-xl p-6 shadow-sm h-[460px]"
+              data-simplebar
+            >
+              <div class="flex items-center mb-4">
+                <div class="bg-green-100 p-2 rounded-full mr-4">
+                  <svg
+                    class="w-6 h-6 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="font-semibold">使用指南</p>
+                  <p class="text-sm text-gray-500">3小时前</p>
+                </div>
+              </div>
+              <div class="prose prose-green max-w-none">
+                <style>
+                  body {
+                    font-family: inherit;
+                    /* 使用默认字体 */
+                    font-style: normal;
+                    /* 设置字体为正常 */
+                  }
+                </style>
+
+                <div style="font-style: normal">
+                  1. 系统采用全新的 speedPHP 框架开发，<br />
+                  2. 使用多线程 CURL 检测账单回调，<br />
+                  3. 相比其它码系统效率提高上百倍不止，<br />
+                  4. 多种支付最新协议以及出色的云端技术，<br />
+                  5. 和三重防掉单技术，让你的使用更加舒适。<br />
+                  6.仅限个人正规用途(例如软件注册码，论坛帐号，卡密商品，等等,（不能出售法律不允许的商品）
+                  拥有独家三网免挂，可完全放心使用，<br />
+                  提供技术支持远程协助您使用对接，当您还在犹豫不决的时候，大佬早就已经开始在使用了！<br />
+                  禁止使用代收功能，发现使用代收功能代收的余额只能用于开通会员或者充值额度！
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- 用户评价 -->
+    <div class="bg-gradient-to-b from-gray-50 to-white py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12 md:mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
+            用户真实评价
+          </h2>
+          <p class="text-base md:text-lg text-gray-600">听听他们怎么说</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- 评价卡片 1 -->
+          <div
+            class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+          >
+            <div class="flex items-center mb-6">
+              <div
+                class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mr-4"
+              >
+                <svg
+                  class="w-8 h-8 text-blue-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  ></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-xl text-gray-900">醉亦醒时醒亦醉</h4>
+                <p class="text-gray-600">个人站长</p>
+              </div>
+            </div>
+            <div class="relative">
+              <svg
+                class="absolute -top-4 -left-4 w-8 h-8 text-blue-200"
+                fill="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"
+                ></path>
+              </svg>
+              <p class="text-gray-700 text-lg leading-relaxed">
+                抱着试一下的心态用了${"web_title" |
+                get_option}，一切按照客服的步骤操作，没想到这么稳定，三网免输金额还秒回调，通道轮训，非常稳定，客服也到位，有问题就解决。
+              </p>
+            </div>
+          </div>
+
+          <!-- 评价卡片 2 -->
+          <div
+            class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+          >
+            <div class="flex items-center mb-6">
+              <div
+                class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mr-4"
+              >
+                <svg
+                  class="w-8 h-8 text-green-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  ></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-xl text-gray-900">待续情话</h4>
+                <p class="text-gray-600">发卡站长</p>
+              </div>
+            </div>
+            <div class="relative">
+              <svg
+                class="absolute -top-4 -left-4 w-8 h-8 text-green-200"
+                fill="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"
+                ></path>
+              </svg>
+              <p class="text-gray-700 text-lg leading-relaxed">
+                网站很稳定，没有出现漏单的情况，用很长时间了，客服人很好，就俩字：牛逼！已经推荐给了朋友使用，朋友也说很好用，真的很棒！
+              </p>
+            </div>
+          </div>
+
+          <!-- 评价卡片 3 -->
+          <div
+            class="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+          >
+            <div class="flex items-center mb-6">
+              <div
+                class="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center mr-4"
+              >
+                <svg
+                  class="w-8 h-8 text-purple-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  ></path>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-xl text-gray-900">谦城之脊</h4>
+                <p class="text-gray-600">社区站长</p>
+              </div>
+            </div>
+            <div class="relative">
+              <svg
+                class="absolute -top-4 -left-4 w-8 h-8 text-purple-200"
+                fill="currentColor"
+                viewbox="0 0 24 24"
+              >
+                <path
+                  d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"
+                ></path>
+              </svg>
+              <p class="text-gray-700 text-lg leading-relaxed">
+                跟着${"web_title" |
+                get_option}很长时间了，服务真的很棒，服务非常好，有问题必解决，回复很快，还经常在群里发红包，我朋友也在用，强烈推荐！
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 联系方式 -->
+    <!-- <div
+      class="bg-gradient-to-b from-white to-gray-50 py-12 md:py-20"
+      id="lxwm"
+    >
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-10 md:mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
+            联系我们
+          </h2>
+          <p class="text-base md:text-lg text-gray-600">
+            每天早上9:00-晚上21:00，如果有任何疑问，欢迎随时联系客户经理
+          </p>
+        </div>
+        <div
+          class="flex flex-col md:flex-row justify-between max-w-6xl mx-auto gap-6 md:gap-8"
+        >
+          <a
+            target="_blank"
+            href="https://wpa.qq.com/msgrd?v=3&amp;uin=3575347937&amp;Site=pay&amp;Menu=yes"
+          >
+            <div
+              class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 md:p-10 rounded-2xl hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 w-full md:flex-1"
+            >
+              <div class="flex items-center justify-center mb-6 md:mb-8">
+                <div class="bg-blue-200 p-4 md:p-5 rounded-full">
+                  <svg
+                    class="w-8 h-8 md:w-10 md:h-10 text-blue-600"
+                    viewbox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12.003 2c-5.514 0-9.998 4.484-9.998 9.997 0 5.514 4.484 9.998 9.998 9.998 5.514 0 9.997-4.484 9.997-9.998 0-5.513-4.483-9.997-9.997-9.997zm2.147 15.005c-.288.077-.588.114-.891.114-1.544 0-2.795-1.251-2.795-2.795 0-.303.037-.603.114-.891l-1.658-1.658c-.077.288-.114.588-.114.891 0 2.476 2.007 4.483 4.483 4.483.303 0 .603-.037.891-.114l1.658 1.658c-.077.288-.114.588-.114.891 0 1.544 1.251 2.795 2.795 2.795.303 0 .603-.037.891-.114l-2.795-2.795 1.658-1.658z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <h3
+                class="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6"
+              >
+                客服QQ
+              </h3>
+              <div class="flex justify-center">
+                <img
+                  src="${.templateAssets}/images/qq.png"
+                  alt="QQ二维码"
+                  class="w-32 h-32 md:w-40 md:h-40 rounded-lg shadow-md"
+                />
+              </div>
+            </div>
+          </a>
+
+          <a
+            target="_blank"
+            href="https://wpa.qq.com/msgrd?v=3&amp;uin=3575347937&amp;Site=pay&amp;Menu=yes"
+          >
+            <div
+              class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 md:p-10 rounded-2xl hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 w-full md:flex-1"
+            >
+              <div class="flex items-center justify-center mb-6 md:mb-8">
+                <div class="bg-purple-200 p-4 md:p-5 rounded-full">
+                  <svg
+                    class="w-8 h-8 md:w-10 md:h-10 text-purple-600"
+                    viewbox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91zM4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm18 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-12-2c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <h3
+                class="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6"
+              >
+                商户Q群
+              </h3>
+              <div class="flex justify-center">
+                <img
+                  src="${.templateAssets}/images/heiyu.png"
+                  alt="商户群二维码"
+                  class="w-32 h-32 md:w-40 md:h-40 rounded-lg shadow-md"
+                />
+              </div>
+            </div>
+          </a>
+
+          <div
+            class="bg-gradient-to-br from-green-50 to-green-100 p-6 md:p-10 rounded-2xl hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 w-full md:flex-1"
+          >
+            <div class="flex items-center justify-center mb-6 md:mb-8">
+              <div class="bg-green-200 p-4 md:p-5 rounded-full">
+                <svg
+                  class="w-8 h-8 md:w-10 md:h-10 text-green-600"
+                  viewbox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M8.5 13.5l2.5 3 3.5-4.5 4.5 6H5m16 1V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6">
+              故障反馈
+            </h3>
+            <div class="flex justify-center">
+              <img
+                src="${.templateAssets}/images/wx.png"
+                alt="微信二维码"
+                class="w-32 h-32 md:w-40 md:h-40 rounded-lg shadow-md"
+              />
+            </div>
+          </div>
+
+          <div
+            class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 md:p-10 rounded-2xl hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 w-full md:flex-1"
+          >
+            <div class="flex items-center justify-center mb-6 md:mb-8">
+              <div class="bg-indigo-200 p-4 md:p-5 rounded-full">
+                <svg
+                  class="w-8 h-8 md:w-10 md:h-10 text-indigo-600"
+                  viewbox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold text-center mb-4 md:mb-6">
+              商务合作
+            </h3>
+            <div class="flex justify-center">
+              <img
+                src="${.templateAssets}/images/cloudcvm.png"
+                alt="公众号二维码"
+                class="w-32 h-32 md:w-40 md:h-40 rounded-lg shadow-md"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- 合作伙伴 -->
+    <!-- <div class="bg-gray-50 py-16">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">合作伙伴</h2>
+          <p class="text-gray-600">携手共创未来，共同成长</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
+          <div
+            class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition duration-300 flex items-center justify-center"
+          >
+            <img
+              src="${.templateAssets}/images/weixinzhifu-e1464608068119.png"
+              alt="合作伙伴"
+              class="max-h-12"
+            />
+          </div>
+          <div
+            class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition duration-300 flex items-center justify-center"
+          >
+            <img
+              src="${.templateAssets}/images/alipay.png"
+              alt="合作伙伴"
+              class="max-h-12"
+            />
+          </div>
+          <div
+            class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition duration-300 flex items-center justify-center"
+          >
+            <img
+              src="${.templateAssets}/images/yllogo.png"
+              alt="合作伙伴"
+              class="max-h-12"
+            />
+          </div>
+          <div
+            class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition duration-300 flex items-center justify-center"
+          >
+            <img src="${.templateAssets}/images/pa9.png" alt="合作伙伴" class="max-h-12" />
+          </div>
+          <div
+            class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition duration-300 flex items-center justify-center"
+          >
+            <img src="${.templateAssets}/images/pa12.png" alt="合作伙伴" class="max-h-12" />
+          </div>
+          <div
+            class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition duration-300 flex items-center justify-center"
+          >
+            <img src="${.templateAssets}/images/pa4.png" alt="合作伙伴" class="max-h-12" />
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-gray-300 py-8 md:py-12">
+      <div class="max-w-7xl mx-auto px-4">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mb-6 md:mb-8"
+        >
+          <div class="text-center md:text-left p-3 md:p-4 rounded-lg">
+            <h4
+              class="text-white text-base md:text-lg font-semibold mb-3 md:mb-4 border-b border-gray-600 pb-2"
+            >
+              热门通道
+            </h4>
+            <ul class="space-y-2 md:space-y-3">
+              <li>
+                <a
+                  href="/user/channel/account"
+                  class="text-sm md:text-base hover:text-white transition duration-200 flex items-center justify-center md:justify-start"
+                  ><svg
+                    class="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2"
+                    fill="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      d="M8.5 2v2H5v18h14V4h-3.5V2h-7zm1 2h5v1h-5V4z"
+                    ></path></svg
+                  >微信支付</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/user/channel/account"
+                  class="text-sm md:text-base hover:text-white transition duration-200 flex items-center justify-center md:justify-start"
+                  ><svg
+                    class="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2"
+                    fill="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+                    ></path></svg
+                  >支付宝支付</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/user/channel/account"
+                  class="text-sm md:text-base hover:text-white transition duration-200 flex items-center justify-center md:justify-start"
+                  ><svg
+                    class="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2"
+                    fill="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+                    ></path></svg
+                  >QQ钱包支付</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/user/channel/account"
+                  class="text-sm md:text-base hover:text-white transition duration-200 flex items-center justify-center md:justify-start"
+                  ><svg
+                    class="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2"
+                    fill="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path></svg
+                  >更多通道</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="text-center md:text-left p-3 md:p-4 rounded-lg">
+            <h4
+              class="text-white text-base md:text-lg font-semibold mb-3 md:mb-4 border-b border-gray-600 pb-2"
+            >
+              支持服务
+            </h4>
+            <ul class="space-y-2 md:space-y-3">
+              <li>
+                <a
+                  href="/doc"
+                  class="text-sm md:text-base hover:text-white transition duration-200 flex items-center justify-center md:justify-start"
+                  ><svg
+                    class="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2"
+                    fill="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2z"
+                    ></path></svg
+                  >文档中心</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/demo"
+                  class="text-sm md:text-base hover:text-white transition duration-200 flex items-center justify-center md:justify-start"
+                  ><svg
+                    class="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2"
+                    fill="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      d="M21 10.12h-6.78l2.74-2.82c-2.73-2.7-7.15-2.8-9.88-.1-2.73 2.71-2.73 7.08 0 9.79s7.15 2.71 9.88 0C18.32 15.65 19 14.08 19 12.1h2c0 1.98-.88 4.55-2.64 6.29-3.51 3.48-9.21 3.48-12.72 0-3.5-3.47-3.53-9.11-.02-12.58s9.14-3.47 12.65 0L21 3v7.12zM12.5 8v4.25l3.5 2.08-.72 1.21L11 13V8h1.5z"
+                    ></path></svg
+                  >支付测试</a
+                >
+              </li>
+              <!-- <li>
+                <a
+                  href="#lxwm"
+                  class="text-sm md:text-base hover:text-white transition duration-200 flex items-center justify-center md:justify-start"
+                  ><svg
+                    class="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2"
+                    fill="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"
+                    ></path></svg
+                  >售后服务</a
+                >
+              </li> -->
+            </ul>
+          </div>
+          <div class="text-center md:text-left p-3 md:p-4 rounded-lg">
+            <h4
+              class="text-white text-base md:text-lg font-semibold mb-3 md:mb-4 border-b border-gray-600 pb-2"
+            >
+              官方客服
+            </h4>
+            <ul class="space-y-2 md:space-y-3">
+              <li>
+                <a
+                  href="#lxwm"
+                  class="text-sm md:text-base hover:text-white transition duration-200 flex items-center justify-center md:justify-start"
+                  ><svg
+                    class="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2"
+                    fill="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"
+                    ></path></svg
+                  >商户Q群</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#lxwm"
+                  class="text-sm md:text-base hover:text-white transition duration-200 flex items-center justify-center md:justify-start"
+                  ><svg
+                    class="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2"
+                    fill="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"
+                    ></path></svg
+                  >在线客服</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#lxwm"
+                  class="text-sm md:text-base hover:text-white transition duration-200 flex items-center justify-center md:justify-start"
+                  ><svg
+                    class="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2"
+                    fill="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+                    ></path></svg
+                  >对接咨询</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="text-center md:text-left p-3 md:p-4 rounded-lg">
+            <h4
+              class="text-white text-base md:text-lg font-semibold mb-3 md:mb-4 border-b border-gray-600 pb-2"
+            >
+              关注我们
+            </h4>
+            <div class="flex justify-center md:justify-start">
+              <img
+                src="${.templateAssets}/images/xxxx.png"
+                alt="微信公众号二维码"
+                class="w-24 h-24 md:w-32 md:h-32"
+              />
+            </div>
+            <p class="text-xs md:text-sm mt-2">扫码关注获取更多资讯</p>
+          </div>
+        </div>
+        <div class="border-t border-gray-700 pt-6 md:pt-8">
+          <!-- <div class="mb-4">
+            <h4 class="text-white text-base md:text-lg font-semibold mb-3">
+              友情链接
+            </h4>
+            <div class="flex flex-wrap justify-start gap-4">
+              <a
+                href="/"
+                target="_blank"
+                class="text-sm hover:text-white transition duration-200"
+                >首页</a
+              >
+            </div>
+          </div> -->
+          <p class="text-xs md:text-sm">
+            Copyright © 2012-2025 ${"web_title" | get_option} All Rights
+            Reserved.
+          </p>
+          <!-- 备案号 -->
+          <!-- <p class="mt-2 text-xs md:text-sm">
+            <a
+              href="https://beian.miit.gov.cn/"
+              target="_blank"
+              class="hover:text-white"
+              >xxxxxx</a
+            >
+          </p> -->
+        </div>
+      </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <button
+      onclick="topFunction()"
+      id="backToTopBtn"
+      class="fixed bottom-6 right-6 bg-gray-800 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 transition duration-300 opacity-0"
+    >
+      <svg
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewbox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 10l7-7m0 0l7 7m-7-7v18"
+        ></path>
+      </svg>
+    </button>
+
+    <script>
+      // 获取按钮元素
+      let backToTopBtn = document.getElementById("backToTopBtn");
+
+      // 当用户滚动时显示/隐藏按钮
+      window.onscroll = function () {
+        if (
+          document.body.scrollTop > 200 ||
+          document.documentElement.scrollTop > 200
+        ) {
+          backToTopBtn.style.opacity = "1";
+        } else {
+          backToTopBtn.style.opacity = "0";
+        }
+      };
+
+      // 点击按钮返回顶部
+      function topFunction() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+    </script>
+
+    <script>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?65e7fae09a8410ce05267bb2d11b9bf2";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  </body>
+</html>

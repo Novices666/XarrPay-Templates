@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API接口演示</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 8px;
+            flex-grow: 1;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .result-container {
+            display: flex;
+            gap: 20px;
+        }
+        .json-view, .data-view {
+            flex: 1;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 3px;
+        }
+        .data-item {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .data-item:last-child {
+            border-bottom: none;
+        }
+        .data-label {
+            font-weight: bold;
+            color: #333;
+        }
+        .data-value {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>API接口演示</h1>
+        
+        <div class="input-group">
+            <input type="text" id="orderId" placeholder="请输入订单ID" value="${.orderInfo.order_id}">
+            <button onclick="callApis()">调用API</button>
+        </div>
+
+    <div class="api-container">
+        <!-- 订单信息接口 -->
+        <div class="api-section">
+            <h2>订单信息接口</h2>
+            <button onclick="getOrderInfo()">获取订单信息</button>
+            <div class="result-container">
+                <div class="json-view">
+                    <h3>完整JSON响应</h3>
+                    <pre id="orderInfoJson">请先调用API...</pre>
+                </div>
+                <div class="data-view">
+                    <h3>分解数据展示</h3>
+                    <div id="orderInfoData"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 订单状态接口 -->
+        <div class="api-section">
+            <h2>订单状态接口</h2>
+            <button onclick="getOrderStatus()">获取订单状态</button>
+            <div class="result-container">
+                <div class="json-view">
+                    <h3>完整JSON响应</h3>
+                    <pre id="orderStatusJson">请先调用API...</pre>
+                </div>
+                <div class="data-view">
+                    <h3>分解数据展示</h3>
+                    <div id="orderStatusData"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 订单二维码接口 -->
+        <div class="api-section">
+            <h2>订单二维码接口</h2>
+            <button onclick="getOrderQRCode()">获取二维码信息</button>
+            <div class="result-container">
+                <div class="json-view">
+                    <h3>完整JSON响应</h3>
+                    <pre id="orderQRCodeJson">请先调用API...</pre>
+                </div>
+                <div class="data-view">
+                    <h3>分解数据展示</h3>
+                    <div id="orderQRCodeData"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 订单语音接口 -->
+        <div class="api-section">
+            <h2>订单语音接口</h2>
+            <button onclick="getOrderAudio()">获取语音信息</button>
+            <div class="result-container">
+                <div class="json-view">
+                    <h3>完整JSON响应</h3>
+                    <pre id="orderAudioJson">请先调用API...</pre>
+                </div>
+                <div class="data-view">
+                    <h3>分解数据展示</h3>
+                    <div id="orderAudioData"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="./assets/js/api.js"></script>
+    <script>
+        // 格式化JSON显示
+        function formatJson(json) {
+            return JSON.stringify(json, null, 2);
+        }
+
+        // 创建数据项HTML
+        function createDataItem(label, value) {
+            const div = document.createElement('div');
+            div.classList.add('data-item');
+            
+            const labelDiv = document.createElement('div');
+            labelDiv.classList.add('data-label');
+            labelDiv.textContent = label + ':';
+            
+            const valueDiv = document.createElement('div');
+            valueDiv.classList.add('data-value');
+            valueDiv.textContent = value;
+            
+            div.appendChild(labelDiv);
+            div.appendChild(valueDiv);
+            
+            return div;
+        }
+
+        // 获取订单信息
+        async function getOrderInfo() {
+            const orderId = document.getElementById('orderId').value;
+            if (!orderId) {
+                alert('请输入订单ID');
+                return;
+            }
+
+            try {
+                const result = await Api.getOrderInfo(orderId);
+                document.getElementById('orderInfoJson').textContent = formatJson(result);
+                
+                const container = document.getElementById('orderInfoData');
+                container.innerHTML = '';
+                container.appendChild(createDataItem('订单标题', result.subject));
+                container.appendChild(createDataItem('订单号', result.order_id));
+                container.appendChild(createDataItem('状态', getStatusText(result.status)));
+                container.appendChild(createDataItem('金额', (result.amount / 100) + '元'));
+                container.appendChild(createDataItem('支付方式', result.pay_type_text));
+                container.appendChild(createDataItem('创建时间', result.create_time));
+                container.appendChild(createDataItem('过期时间', new Date(result.expire_time * 1000).toLocaleString()));
+            } catch (error) {
+                document.getElementById('orderInfoJson').textContent = '错误: ' + error.message;
+                const errorContainer = document.getElementById('orderInfoData');
+                errorContainer.innerHTML = '';
+                const errorDiv = document.createElement('div');
+                errorDiv.textContent = '错误: ' + error.message;
+                errorContainer.appendChild(errorDiv);
+            }
+        }
+
+        // 获取订单状态
+        async function getOrderStatus() {
+            const orderId = document.getElementById('orderId').value;
+            if (!orderId) {
+                alert('请输入订单ID');
+                return;
+            }
+
+            try {
+                const result = await Api.getOrderStatus(orderId);
+                document.getElementById('orderStatusJson').textContent = formatJson(result);
+                
+                const container = document.getElementById('orderStatusData');
+                container.innerHTML = '';
+                container.appendChild(createDataItem('订单状态', getStatusText(result.status)));
+                container.appendChild(createDataItem('过期时间', new Date(result.expire_time * 1000).toLocaleString()));
+                if (result.return_uri) {
+                    container.appendChild(createDataItem('返回URI', result.return_uri));
+                }
+            } catch (error) {
+                document.getElementById('orderStatusJson').textContent = '错误: ' + error.message;
+                const statusErrorContainer = document.getElementById('orderStatusData');
+                statusErrorContainer.innerHTML = '';
+                const statusErrorDiv = document.createElement('div');
+                statusErrorDiv.textContent = '错误: ' + error.message;
+                statusErrorContainer.appendChild(statusErrorDiv);
+            }
+        }
+
+        // 获取订单二维码
+        async function getOrderQRCode() {
+            const orderId = document.getElementById('orderId').value;
+            if (!orderId) {
+                alert('请输入订单ID');
+                return;
+            }
+
+            try {
+                const result = await Api.getOrderQRCode(orderId);
+                document.getElementById('orderQRCodeJson').textContent = formatJson(result);
+                
+                const container = document.getElementById('orderQRCodeData');
+                container.innerHTML = '';
+                container.appendChild(createDataItem('二维码类型', result.type));
+                if (result.qrcode) {
+                    container.appendChild(createDataItem('二维码URL', result.qrcode));
+                }
+                if (result.scheme) {
+                    container.appendChild(createDataItem('支付Scheme', result.scheme));
+                }
+            } catch (error) {
+                document.getElementById('orderQRCodeJson').textContent = '错误: ' + error.message;
+                const qrErrorContainer = document.getElementById('orderQRCodeData');
+                qrErrorContainer.innerHTML = '';
+                const qrErrorDiv = document.createElement('div');
+                qrErrorDiv.textContent = '错误: ' + error.message;
+                qrErrorContainer.appendChild(qrErrorDiv);
+            }
+        }
+
+        // 获取订单语音
+        async function getOrderAudio() {
+            const orderId = document.getElementById('orderId').value;
+            if (!orderId) {
+                alert('请输入订单ID');
+                return;
+            }
+
+            try {
+                const result = await Api.getOrderAudio(orderId);
+                document.getElementById('orderAudioJson').textContent = formatJson(result);
+                
+                const container = document.getElementById('orderAudioData');
+                container.innerHTML = '';
+                container.appendChild(createDataItem('语音播报', result.audio_enable ? '启用' : '禁用'));
+                container.appendChild(createDataItem('语音内容', result.audio_content));
+                if (result.audio_url) {
+                    container.appendChild(createDataItem('语音URL', result.audio_url));
+                }
+            } catch (error) {
+                document.getElementById('orderAudioJson').textContent = '错误: ' + error.message;
+                const audioErrorContainer = document.getElementById('orderAudioData');
+                audioErrorContainer.innerHTML = '';
+                const audioErrorDiv = document.createElement('div');
+                audioErrorDiv.textContent = '错误: ' + error.message;
+                audioErrorContainer.appendChild(audioErrorDiv);
+            }
+        }
+
+        // 获取状态文本
+        function getStatusText(status) {
+            const statusMap = {
+                1: '待支付',
+                2: '支付完成',
+                3: '已关闭',
+                4: '已超时',
+                5: '创建失败'
+            };
+            return statusMap[status] || '未知状态';
+        }
+
+
+    </script>
+</body>
+</html>
