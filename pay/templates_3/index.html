@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>支付页面</title>
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.87/dist/themes/light.css">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -74,7 +73,7 @@
             padding: 20px;
         }
 
-        @media(min-width: 768px) {
+        @media (min-width: 768px) {
             .middle {
                 margin-bottom: 10px;
                 flex-direction: row;
@@ -94,6 +93,21 @@
                 flex: 1;
                 margin: 10px;
             }
+
+            .btnscheme {
+                display: none !important;
+            }
+
+            .alert-box {
+                width: 85%;
+                min-height: 25%;
+                padding: 25px 20px;
+            }
+
+            .alert-message {
+                font-size: 17px;
+            }
+
         }
 
         .detail {
@@ -103,7 +117,11 @@
         }
 
         .footer {
-            font-size: 14px;
+            font-size: 20px;
+        }
+
+        .footer p {
+            margin: 5px;
         }
 
         .modal {
@@ -145,6 +163,78 @@
             cursor: pointer;
             font-size: 14px;
         }
+
+        .btnscheme {
+            display: block;
+            border-radius: 8px;
+            width: 50%;
+            background-color: #1D4ED8;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 0 auto;
+        }
+
+        .alert-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #3B82F6;
+            border: 2px solid white;
+
+            border-radius: 10px;
+
+            padding: 30px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+
+            z-index: 10000;
+
+            text-align: center;
+            color: white;
+            width: 60%;
+            min-height: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            animation: fadeIn 0.3s ease-in-out;
+            /* 添加淡入动画 */
+        }
+
+        /* 淡入动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -55%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .alert-message {
+            margin-bottom: 20px;
+            font-size: 18px;
+            line-height: 1.5;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            /* 文字阴影增强可读性 */
+        }
+
+        .alert-countdown {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 15px;
+            margin-top: 15px;
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
     </style>
 </head>
 
@@ -152,7 +242,8 @@
     <div class="container">
         <div class="header">
             <div>订单号: <span id="orderId">${.orderInfo.order_id}</span></div>
-            <p style="font-size: 30px;margin-top:20px;margin-bottom:0;">¥ <span id="tradeAmount">NaNa</span></p>
+            <p style="font-size: 30px;margin-top:20px;margin-bottom:0;">¥ <span
+                    id="tradeAmount">${.orderInfo.trade_amount_text}</span></p>
         </div>
 
         <div class="middle">
@@ -162,6 +253,7 @@
                 <image id="qrcodeData" src="${.templateAssets}/images/qrcode_loding.png" alt="二维码"
                     style="width: 60%;display: flex;align-items: center;justify-content: center;margin: 0 auto;">
                 </image>
+                <button class="btnscheme" id="qrcodeSchemeBtn" onclick="JumpPayScheme()">跳转支付</button>
 
             </div>
             <div class="card" style="margin-right: 0px;">
@@ -169,15 +261,15 @@
 
                 <div class="detail">
                     <span>订单名称:</span>
-                    <span id="subject">NaNa</span>
+                    <span id="subject">${.orderInfo.subject}</span>
                 </div>
                 <div class="detail">
                     <span>支付方式:</span>
-                    <image style="width: 30px;" src="" alt="" id="payTypeLogo"></image>
+                    <image style="width: 30px;" src="${.orderInfo.pay_type_info.logo}" alt="" id="payTypeLogo"></image>
                 </div>
                 <div class="detail">
                     <span>订单状态:</span>
-                    <span id="status">NaNa</span>
+                    <span id="status">待支付</span>
                 </div>
                 <div class="detail">
                     <span>创建时间:</span>
@@ -188,13 +280,13 @@
         </div>
 
         <div class="footer">
-            <p>联系QQ: <span id="serviceQq">NaNa</span></p>
+            <p>联系QQ: <span id="serviceQq">${.contact}</span></p>
         </div>
     </div>
 
     <div class="modal" id="modal">
         <div class="modal-content">
-            <p>请使用<span id="payTypeText" style="color: #1D4ED8;"></span>扫码支付</p>
+            <p>请使用<span id="payTypeText" style="color: #1D4ED8;">${.orderInfo.pay_type_info.label}</span>扫码支付</p>
             <p>注意订单金额，不要多付或者少付</p>
             <p>如果付款后未跳转，请联系底部客服QQ</p>
             <button class="modal-btn" onclick="closeModal()">确认</button>
@@ -202,8 +294,6 @@
     </div>
 
     <audio id="audio" playsinline autoplay style="display: none;"></audio>
-    <script type="module"
-        src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.87/dist/shoelace.js"></script>
 
     <script src="${.templateAssets}/js/main.js"></script>
     <script src="${.templateAssets}/js/api.js"></script>
@@ -219,6 +309,9 @@
             domElements.audio.play();
             domElements.modal.classList.remove('show');
         }
+        function JumpPayScheme() {
+            window.location.href = orderQRCode.scheme;
+        }
         // 页面加载完成执行
         window.onload = async function () {
             await getOrderData();
@@ -226,7 +319,7 @@
             startCheckOrderStatus();
             startCountdown();
             loadOrderData();
-            
+
         };
     </script>
 </body>

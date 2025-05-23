@@ -14,6 +14,7 @@ const domElements = {
     qrcodeData: document.getElementById("qrcodeData"),
     countdown: document.getElementById("countdown"),
     modal: document.getElementById("modal"),
+    qrcodeSchemeBtn: document.getElementById("qrcodeSchemeBtn"),
 };
 const OrderId = domElements.orderId.textContent;
 console.log(OrderId);
@@ -38,14 +39,14 @@ async function getOrderData() {
 // 加载数据到页面
 function loadOrderData() {
     domElements.subject.textContent = orderInfo.subject;
-    domElements.tradeAmount.textContent = (orderInfo.trade_amount/100).toFixed(2);
+    domElements.tradeAmount.textContent = (orderInfo.trade_amount / 100).toFixed(2);
     domElements.payTypeText.textContent = orderInfo.pay_type_text;
     domElements.payTypeLogo.src = orderInfo.pay_type_logo;
     domElements.serviceQq.textContent = orderInfo.service_qq;
     domElements.createTime.textContent = orderInfo.create_time;
     domElements.payTip.innerHTML = orderInfo.pay_tip;
     if (orderAudio.audio_enable == 1) {
-        domElements.audio.src = "https://tts.xarr.uk?t="+encodeURI( orderAudio.audio_content);
+        domElements.audio.src = "https://tts.xarr.uk?t=" + encodeURI(orderAudio.audio_content);
     }
     loadOrderQRCode(orderQRCode);
     initOrderStatus(orderInfo.status);
@@ -87,9 +88,42 @@ function loadOrderStatus(orderStatus) {
             domElements.status.textContent = "等待支付";
             break;
         case 2: // 已支付
+
+
             domElements.status.textContent = "支付完成";
-            console.log("3秒后跳转");
+            let remainingTime = orderStatus.pay_payed_wait_time;
+            console.log(orderStatus.pay_payed_wait_time + "秒后跳转");
+            domElements.modal.classList.remove('show');
+            const existingAlert = document.querySelector('.alert-box');
+            if (existingAlert) existingAlert.remove();
+            const alertBox = document.createElement('div');
+            alertBox.className = 'alert-box';
+
+            const alertMsg = document.createElement('div');
+            alertMsg.className = 'alert-message';
+            alertMsg.textContent = "订单支付完成";
+
+            const countdown = document.createElement('div');
+            countdown.className = 'alert-countdown';
+            countdown.textContent = remainingTime + "秒后跳转";
+            // 组装提示框
+            alertBox.appendChild(alertMsg);
+            alertBox.appendChild(countdown);
+            // 添加到页面
+            document.body.appendChild(alertBox);
+
+            const countdownInterval = setInterval(function () {
+                remainingTime--;
+                console.log(remainingTime + "秒后跳转");
+                countdown.textContent = remainingTime + "秒后跳转"
+                if (remainingTime <= 0) {
+                    clearInterval(countdownInterval); // 清除倒计时定时器
+                    window.location.href = orderStatus.return_uri;
+                }
+            }, 1000);
+
             setTimeout(function () {
+                clearInterval(countdownInterval);
                 window.location.href = orderStatus.return_uri;
             }, orderStatus.pay_payed_wait_time * 1000);
             return;
@@ -112,6 +146,9 @@ async function startCheckOrderStatus() {
         try {
             orderStatus = await Api.getOrderStatus(OrderId);
             // console.log(orderStatus);
+            if (orderStatus.status == 2) {
+                clearInterval(timer);
+            }
             loadOrderStatus(orderStatus);
         } catch (e) {
             console.error(e);
