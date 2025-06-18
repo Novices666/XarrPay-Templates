@@ -5,192 +5,589 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>订单支付</title>
-    <!-- Shoelace CSS -->
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.87/dist/themes/light.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #6366f1;
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-            --danger-color: #ef4444;
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --success-color: #4ade80;
+            --danger-color: #f87171;
+            --warning-color: #fbbf24;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --text-color: #334155;
+            --text-light: #64748b;
             --border-radius: 12px;
-            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --card-padding: 1.75rem;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
             min-height: 100vh;
-            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 20px;
-            background-color: #f8fafc;
-            color: #1e293b;
-            line-height: 1.5;
+            color: var(--text-color);
+            line-height: 1.6;
         }
 
         .payment-container {
-            width: 100%;
-            max-width: 680px;
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        .card {
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            padding: var(--card-padding);
             width: 100%;
-            box-sizing: border-box;
-        }
-
-        /* 顶部信息区域 */
-        .top-info {
+            max-width: 1000px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding-bottom: 1.5rem;
+            z-index: 10;
+            position: relative;
+            transform: scale(1);
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        .order-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin: 0.5rem 0 0.25rem;
-        }
-
-        .order-id {
-            font-size: 0.9rem;
-            color: #64748b;
-            margin-bottom: 1rem;
-        }
-
-        .amount {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin: 0.5rem 0;
-        }
-
-        .timer {
-            display: inline-flex;
-            align-items: center;
-            background: #fff4f4;
-            color: var(--danger-color);
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            margin-top: 0.5rem;
-        }
-
-        .timer sl-icon {
-            margin-right: 0.5rem;
-        }
-
-        /* 底部双栏布局 */
-        .bottom-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.25rem;
-        }
-
-        /* 左侧二维码区域 */
-        .qrcode-area {
+        .payment-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 18px 25px;
+            color: white;
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
         }
 
-        .qrcode-title {
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin: 0 0 1rem;
-            text-align: center;
+        .payment-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15));
+            transform: skewX(-20deg);
+            animation: shine 3s infinite;
         }
 
-        .qrcode-container {
-            width: 230px;
-            height: 230px;
-            background: white;
-            border: 1px dashed #e2e8f0;
-            border-radius: 8px;
+        @keyframes shine {
+            0% {
+                right: -100px;
+            }
+
+            100% {
+                right: 120%;
+            }
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .header-title h1 {
+            font-size: 22px;
+            letter-spacing: 0.5px;
+            margin: 0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-title p {
+            font-size: 14px;
+            opacity: 0.9;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        .payment-logo {
+            font-size: 20px;
+            opacity: 0.9;
+            background: rgba(255, 255, 255, 0.2);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #94a3b8;
-            margin-bottom: 1rem;
+            backdrop-filter: blur(5px);
         }
 
-        .payment-notice {
-            color: #64748b;
-            font-size: 0.85rem;
+        .payment-content {
+            display: flex;
+            padding: 0;
+            flex-wrap: wrap;
+        }
+
+        .qr-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
             text-align: center;
-            margin-top: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f8fafc;
         }
 
-        /* 右侧信息区域 */
-        .detail-area {
+        .order-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            background: #fff;
             display: flex;
             flex-direction: column;
         }
 
-        .detail-title {
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin: 0 0 1rem;
+        .qr-container {
+            max-width: 400px;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            display: inline-block;
+            margin: 25px 0 25px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
         }
 
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
+        .qr-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .qr-code {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            border-radius: var(--border-radius);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(67, 97, 238, 0.2);
+        }
+
+        .qr-code::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle, transparent 30%, rgba(255, 255, 255, 0.1) 60%, transparent 70%),
+                linear-gradient(90deg, transparent 45%, rgba(255, 255, 255, 0.2) 50%, transparent 55%),
+                linear-gradient(0deg, transparent 45%, rgba(255, 255, 255, 0.2) 50%, transparent 55%);
+            background-size: 200% 200%, 12px 12px, 12px 12px;
+            animation: qr-animation 3s infinite linear;
+        }
+
+        @keyframes qr-animation {
+            0% {
+                background-position: 0% 0%, 0 0, 0 0;
+            }
+
+            100% {
+                background-position: 200% 200%, 24px 24px, 24px 24px;
+            }
+        }
+
+        .qr-center {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .qr-center::after {
+            content: '';
+            width: 30px;
+            height: 30px;
+            background: var(--primary-color);
+            border-radius: 6px;
+        }
+
+        .payment-method-label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0 25px;
+            padding: 12px 30px;
+            background: white;
+            border-radius: 40px;
+            color: var(--dark-color);
+            font-weight: 600;
+            font-size: 18px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .payment-method-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-method-label i {
+            font-size: 26px;
+            color: var(--success-color);
+        }
+
+        .amount-display {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 18px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 400px;
+            transition: var(--transition);
+        }
+
+        .amount-display:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .amount-display .amount-label {
+            font-size: 16px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .amount-display .amount-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--danger-color);
+            cursor: pointer;
+            position: relative;
+            letter-spacing: 1px;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .amount-display .copy-btn {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+        }
+
+        .amount-display .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        .copy-notification {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark-color);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            opacity: 0;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+            pointer-events: none;
+        }
+
+        .copy-notification.show {
+            opacity: 1;
+            top: -40px;
+        }
+
+        .timer-container {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: var(--border-radius);
+            padding: 25px;
+            text-align: center;
+            margin: 0 0 25px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .timer-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.3);
+        }
+
+        .timer-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--danger-color), var(--warning-color));
+        }
+
+        .timer-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .timer {
+            font-size: 44px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 2px;
+            margin: 10px 0;
+            font-family: 'Roboto Mono', monospace;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .timer-subtext {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .order-info {
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .order-info h2 {
+            color: var(--dark-color);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .order-info h2 i {
+            margin-right: 12px;
+            color: var(--primary-color);
+            background: rgba(67, 97, 238, 0.1);
+            padding: 10px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .info-item {
             display: flex;
             justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .info-label {
-            color: #64748b;
-            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 500;
+            min-width: 90px;
+            font-size: 15px;
         }
 
         .info-value {
+            color: var(--dark-color);
             font-weight: 500;
             text-align: right;
+            flex: 1;
+            font-size: 16px;
         }
 
-        .badge-value {
-            display: flex;
-            justify-content: flex-end;
+        .amount {
+            font-size: 28px;
+            color: var(--danger-color);
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-family: 'Roboto Mono', monospace;
         }
 
-        /* 底部操作区域 */
-        .action-area {
-            margin-top: 2rem;
+        .instructions {
+            background: #f8fafc;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: var(--box-shadow);
+        }
+
+        .instructions h3 {
+            color: var(--dark-color);
+            margin-bottom: 20px;
             display: flex;
-            flex-direction: column;
             align-items: center;
+            font-size: 18px;
+            font-weight: 600;
         }
 
-        .customer-service {
+        .instructions h3 i {
+            margin-right: 12px;
+            color: var(--primary-color);
+            background: rgba(67, 97, 238, 0.1);
+            padding: 10px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .instructions ol {
+            padding-left: 20px;
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        .instructions li {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .payment-footer {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 18px;
             text-align: center;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #e2e8f0;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            font-weight: 400;
         }
 
-        .service-title {
-            font-size: 0.95rem;
-            color: #64748b;
-            margin-bottom: 0.75rem;
+        /* 响应式设计 */
+        @media (max-width: 900px) {
+            .payment-content {
+                flex-direction: column;
+            }
+
+            .qr-section {
+                border-right: none;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                padding: 25px;
+            }
+
+            .order-section {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .header-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+
+            .payment-header {
+                padding: 15px 20px;
+            }
+
+            .header-title h1 {
+                font-size: 20px;
+            }
+
+            .header-title p {
+                font-size: 13px;
+            }
+
+            .payment-logo {
+                font-size: 18px;
+                width: 32px;
+                height: 32px;
+            }
+
+            .qr-section,
+            .order-section {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .amount-display {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .qr-code {
+                width: 200px;
+                height: 200px;
+            }
+
+            .payment-method-label {
+                font-size: 16px;
+                padding: 10px 25px;
+            }
+
+            .timer {
+                font-size: 38px;
+            }
+
+            .order-info h2 {
+                font-size: 20px;
+            }
+
+            .info-label,
+            .info-value {
+                font-size: 14px;
+            }
+
+            .amount {
+                font-size: 24px;
+            }
+
+            .instructions {
+                padding: 20px;
+            }
+        }
+
+        @media (max-height: 700px) {
+            .payment-container {
+                max-height: 95vh;
+                overflow-y: auto;
+            }
         }
 
         .modal {
@@ -209,163 +606,136 @@
             align-items: center;
             justify-content: center;
         }
-
-        .modal-content {
-            background-color: white;
-            border-radius: 8px;
-            width: 80%;
-            max-width: 400px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .modal-message {
-            margin-bottom: 20px;
-        }
-
-        .modal-btn {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-
-        @media (max-width: 640px) {
-            .bottom-section {
-                grid-template-columns: 1fr;
-            }
-
-            .card {
-                padding: 1.5rem;
-            }
-        }
     </style>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
     <div class="payment-container">
-        <!-- 顶部信息卡片 -->
-        <div class="card">
-            <div class="top-info">
-                <img id="payLogo" style="height: 50px;" src="" alt="支付方式">
-                <div class="order-id">订单号: <span id="orderId">${.orderInfo.order_id}</span></div>
-                <div class="amount"><span id="amount"></span></div>
-                <div class="timer">
-                    <sl-icon name="clock"></sl-icon>
-                    <span id="countdown"></span>
-                </div>
+        <div class="payment-header">
+            <div class="header-title">
+                <h1><i class="fas fa-qrcode"></i>订单支付</h1>
+                <p>请使用手机扫描二维码完成支付</p>
+            </div>
+            <div class="payment-logo">
+                <i class="fas fa-lock"></i>
             </div>
         </div>
 
-        <!-- 底部双栏区域 -->
-        <div class="card">
-            <div class="bottom-section">
-                <!-- 左侧二维码区域 -->
-                <div class="qrcode-area">
-                    <h3 class="qrcode-title"><span id="payTypeText"></span> 扫码支付</h3>
-                    <div class="qrcode-container">
-                        <!-- 实际项目中替换为真实的二维码图片 -->
-                        <img id="qrcodeImg" style="width: 100%;" src="" alt="支付二维码">
-                    </div>
-
-
+        <div class="payment-content">
+            <div class="qr-section">
+                <div class="timer-container">
+                    <div class="timer-label">支付剩余时间</div>
+                    <div class="timer" id="countdown">Na:Na</div>
+                    <div class="timer-subtext">超时订单将自动关闭</div>
                 </div>
 
-                <!-- 右侧详情区域 -->
-                <div class="detail-area">
-                    <h3 class="detail-title">订单信息</h3>
-
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <span class="info-label">订单名称</span>
-                            <span class="info-value" id="subject"></span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">创建时间</span>
-                            <span class="info-value">2023-11-24 14:30</span>
-                        </div>
-
-                        <div class="info-item">
-                            <span class="info-label">支付方式</span>
-                            <div class="badge-value">
-                                <sl-badge variant="primary"><span id="payTypeText"></span></sl-badge>
-                            </div>
-                        </div>
-
-                        <div class="info-item">
-                            <span class="info-label">订单状态</span>
-                            <div class="badge-value">
-                                <sl-badge variant="warning">待支付</sl-badge>
-                            </div>
-                        </div>
-                        <div class="action-area">
-                            <sl-button variant="primary" style="width: 100%;">
-                                <sl-icon name="check-circle" slot="prefix"></sl-icon>
-                                我已支付
-                            </sl-button>
-                        </div>
+                <div class="amount-display">
+                    <div class="amount-label">支付金额</div>
+                    <div class="amount-value" id="tradeAmount">${.orderInfo.trade_amount_text}</div>
+                    <button class="copy-btn" id="copyAmountBtn">
+                        <i class="fas fa-copy"></i> 复制
+                    </button>
+                    <div class="copy-notification" id="copyNotification">
+                        已复制到剪贴板
                     </div>
                 </div>
-            </div>
-            <div class="customer-service">
-                <div class="service-title">遇到支付问题？</div>
-                <sl-button variant="default" outline size="small" style="width: 100%; margin-top: 0.5rem;">
-                    <sl-icon name="telephone" slot="prefix"></sl-icon>
-                    客服QQ: <span id="serviceQq"></span>
-                </sl-button>
-            </div>
-        </div>
-    </div>
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <div class="modal-message">页面加载完成，请确认支付信息</div>
-            <button class="modal-btn" onclick="closeModal()">确认</button>
-        </div>
-    </div>
-    <audio id="audio" muted="muted" playsinline autoplay style="display: none;"></audio>
-    <!-- Shoelace JavaScript (不需要其他框架) -->
-    <script type="module"
-        src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.0.0-beta.87/dist/shoelace.js"></script>
+                <div class="qr-container">
+                    <div class="qr-code">
+                        <img  src="" id="qrcodeData">
+                    </div>
+                </div>
 
-    <script src="./assets/js/api.js"></script>
+
+
+
+
+            </div>
+
+            <div class="order-section">
+                <div class="payment-method-label">
+                    <img style="width: 36px; height: 36px;" id="payTypeLogo" src="${.orderInfo.pay_type_info.logo}">
+                    <span id="payTypeText">${.orderInfo.pay_type_info.label} </span>
+                </div>
+                <div class="order-info">
+                    <h2><i class="fas fa-receipt"></i>订单信息</h2>
+                    <div class="info-item">
+                        <span class="info-label">订单编号：</span>
+                        <span class="info-value" id="orderId">${.orderInfo.order_id}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">商品名称：</span>
+                        <span class="info-value" id="subject">${.orderInfo.subject}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">创建时间：</span>
+                        <span class="info-value" id="createTime"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">订单状态：</span>
+                        <span class="info-value " id="status"></span>
+                    </div>
+                </div>
+
+                <div class="instructions">
+                    <h3><i class="fas fa-lightbulb"></i> 支付说明</h3>
+                    <ol>
+                        <li>请打开手机扫一扫功能</li>
+                        <li>扫描上方二维码完成支付</li>
+                        <li>支付成功后，请不要关闭页面，系统将自动跳转</li>
+                        <li>如遇支付问题，请尝试刷新页面或联系客服</li>
+                        <li>支付超时后，请重新创建订单</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-footer">
+            <p>© 2025 安全支付保障 | 客服QQ: <span id="serviceQq">${.contact}</span> </p>
+        </div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div
+            style="background:white; padding:30px; border-radius:15px; text-align:center; max-width:90%; width:450px; box-shadow:0 15px 50px rgba(0,0,0,0.3);">
+            <div style="font-size:72px; color:#268bff;">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div id="payTip"></div>
+            <p style="font-size:18px; margin-bottom:25px; line-height:1.6;">
+                注意订单金额，不要多付或者少付<br>
+                如果付款后未跳转，请联系底部客服QQ
+            </p>
+            <button onclick="closeModal()"
+                style="background:linear-gradient(to right, #3b82f6, #2563eb); color:white; border:none; padding:14px 35px; border-radius:8px; font-size:16px; font-weight:600; cursor:pointer; box-shadow:0 4px 15px rgba(59,130,246,0.3); transition:all 0.3s;">
+                确认
+            </button>
+        </div>
+    </div>
+    <audio id="audio" playsinline autoplay style="display: none;"></audio>
+
+    <script src="${.templateAssets}/js/main.js"></script>
+    <script src="${.templateAssets}/js/api.js"></script>
     <script>
-        // 缓存DOM元素
-        const domElements = {
-            orderId: document.getElementById("orderId"),
-            payTypeText: document.getElementById("payTypeText"),
-            payLogo: document.getElementById("payLogo"),
-            subject: document.getElementById("subject"),
-            amount: document.getElementById("amount"),
-            serviceQq: document.getElementById("serviceQq"),
-            qrcodeImg: document.getElementById("qrcodeImg"),
-            countdown: document.getElementById("countdown"),
-            modal: document.getElementById("modal"),
-            audio: document.getElementById("audio"),
-            copyBtn: document.querySelector(".copy-btn")
-        };
+        // 金额复制功能
+        const copyBtn = document.getElementById("copyAmountBtn");
+        const tradeAmount = document.getElementById("tradeAmount");
+        const copyNotification = document.getElementById("copyNotification");
 
-        const OrderId = domElements.orderId.textContent;
-        console.log(OrderId);
-        var paymentData = null;
-        var qrcodeData = null;
-        async function getData() {
-            try {
-                paymentData = await Api.getOrderInfo(OrderId)
-                console.log(paymentData)
-                qrcodeData = await Api.getOrderQRCode(OrderId);
-                console.log(qrcodeData)
-                audioData = await Api.getOrderAudio(OrderId);
-                console.log(audioData)
-            } catch (e) {
-                console.error(e)
-            }
+        function copyAmount() {
+            const amountValue = tradeAmount.textContent.replace("¥", "");
+            navigator.clipboard.writeText(amountValue).then(() => {
+                copyNotification.classList.add("show");
+                setTimeout(() => {
+                    copyNotification.classList.remove("show");
+                }, 2000);
+            });
         }
+        copyBtn.addEventListener("click", copyAmount);
+        tradeAmount.addEventListener("click", copyAmount);
 
-        // 显示弹窗
         function showModal() {
             domElements.modal.classList.add('show');
         }
@@ -376,67 +746,17 @@
             domElements.audio.play();
             domElements.modal.classList.remove('show');
         }
-        // 金额格式化
-        function formatAmount(amount) {
-            return "¥" + (amount / 100).toFixed(2);
+        function JumpPayScheme() {
+            window.location.href = orderQRCode.scheme;
         }
-        // 加载数据到页面
-        function loadData() {
-            domElements.payTypeText.textContent = paymentData.pay_type_text;
-            domElements.payLogo.src = paymentData.pay_type_logo;
-            domElements.subject.textContent = paymentData.subject;
-            domElements.amount.textContent = formatAmount(paymentData.trade_amount);
-            domElements.serviceQq.textContent = paymentData.service_qq;
-            domElements.audio.src = "https://tts.txu.cc/?t=" + encodeURI(audioData.audio_content)
-            // 加载base64格式的二维码图片
-            if (qrcodeData.qrcode_data && qrcodeData.qrcode_data.startsWith("data:image")) {
-                domElements.qrcodeImg.src = qrcodeData.qrcode_data;
-                domElements.qrcodeImg.style.display = "block";
-            } else {
-                domElements.qrcodeImg.style.display = "none";
-            }
-        }
-
-        // 复制订单号
-        function copyOrderId() {
-            var tempInput = document.createElement("input");
-            tempInput.value = OrderId;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
-
-            domElements.copyBtn.textContent = "已复制";
-            setTimeout(function () {
-                domElements.copyBtn.textContent = "复制";
-            }, 2000);
-        }
-
-        // 倒计时
-        function startCountdown() {
-            var expireTime = paymentData.expire_time;
-            var timer = setInterval(function () {
-                var now = Math.floor(Date.now() / 1000);
-                var remaining = expireTime - now;
-
-                if (remaining <= 0) {
-                    domElements.countdown.textContent = "订单已过期";
-                    clearInterval(timer);
-                    return;
-                }
-
-                var minutes = Math.floor(remaining / 60);
-                var seconds = remaining % 60;
-                domElements.countdown.textContent =
-                    "剩余支付时间: " + minutes + "分" + (seconds < 10 ? "0" : "") + seconds + "秒";
-            }, 1000);
-        }
-        // 页面加载完成后显示弹窗
+        // 页面加载完成执行
         window.onload = async function () {
-            await getData();
-            loadData();
+            await getOrderData();
+            startCheckOrderStatus();
             showModal();
             startCountdown();
+            loadOrderData();
+
         };
     </script>
 </body>
