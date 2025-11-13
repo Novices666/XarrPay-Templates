@@ -243,7 +243,11 @@
         <div class="header">
             <div>订单号: <span id="orderId">${.orderInfo.order_id}</span></div>
             <p style="font-size: 30px;margin-top:20px;margin-bottom:0;">¥ <span
-                    id="tradeAmount">${.orderInfo.trade_amount_text}</span></p>
+                    id="tradeAmount">${.orderInfo.trade_amount_text}</span>
+            <button id="copyAmountBtn" style="padding: 6px 12px; border-radius: 20px; margin-left: 10px; background-color: #007bff; color: white; border: none; cursor: pointer;">
+                复制
+            </button>
+                </p>
         </div>
 
         <div class="middle">
@@ -299,6 +303,20 @@
     <script src="${.templateAssets}/js/api.js"></script>
 
     <script>
+        const copyBtn = document.getElementById("copyAmountBtn");
+        const tradeAmount = document.getElementById("tradeAmount");
+
+        function copyAmount() {
+            const amountValue = tradeAmount.textContent.replace("¥", "");
+            navigator.clipboard.writeText(amountValue).then(() => {
+                copyBtn.textContent = "已复制";
+                setTimeout(() => {
+                    copyBtn.textContent = "复制";
+                }, 2000);
+            });
+        }
+        copyBtn.addEventListener("click", copyAmount);
+        tradeAmount.addEventListener("click", copyAmount);
         function showModal() {
             domElements.modal.classList.add('show');
         }
