@@ -4,9 +4,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="${" web_description" | get_option}">
+    <meta name="description" content="${"web_description" | get_option}">
     <meta name="author" content="HG007">
-    <meta name="keywords" content="${" web_keywords" | get_option}" />
+    <meta name="keywords" content="${"web_keywords" | get_option}" />
     <title>${"web_title" | get_option} - 行业领先的免签约支付平台</title>
     <!-- Preloader -->
     <style>
@@ -60,9 +60,9 @@
         });
     </script>
     <!-- Favicon -->
-    <link rel="icon" href="assets/img/favicon.png" type="image/png">
-    <link rel="stylesheet" href="assets/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/quick-website.css" id="stylesheet">
+    <link rel="icon" href="${.templateAssets}/img/favicon.png" type="image/png">
+    <link rel="stylesheet" href="${.templateAssets}/css/all.min.css">
+    <link rel="stylesheet" href="${.templateAssets}/css/quick-website.css" id="stylesheet">
     
 </head>
 
@@ -77,7 +77,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container">
             <a class="navbar-brand-1" href="/index.html">
-                <img draggable="false" alt="Image placeholder" src="assets/img/logo.png" style="max-height:50px;" id="navbar-logo">
+                <img draggable="false" alt="Image placeholder" src="${.templateAssets}/img/logo.png" style="max-height:50px;" id="navbar-logo">
                 <span style="font-size: 30px; float: right; text-align: center; text-indent: 10px; font-weight: bolder;">
                     ${"web_title" | get_option}</span>
             </a>
@@ -121,7 +121,7 @@
             <div class="row row-grid align-items-center">
                 <div class="col-12 col-md-5 col-lg-6 order-md-2 text-center">
                     <figure class="w-100">
-                        <img draggable="false" alt="Image placeholder" src="assets/img/illustration-3.svg" class="img-fluid mw-md-120">
+                        <img draggable="false" alt="Image placeholder" src="${.templateAssets}/img/illustration-3.svg" class="img-fluid mw-md-120">
                     </figure>
                 </div>
                 <div class="col-12 col-md-7 col-lg-6 order-md-1 pr-md-5">
@@ -162,7 +162,7 @@
                     <div class="card">
                         <div class="card-body pb-5">
                             <div class="pt-4 pb-5">
-                                <img draggable="false" src="assets/img/illustration-5.svg" class="img-fluid img-center"
+                                <img draggable="false" src="${.templateAssets}/img/illustration-5.svg" class="img-fluid img-center"
                                     style="height: 150px;" alt="Illustration" />
                             </div>
                             <h5 class="h4 lh-130 mb-3">服务器安全</h5>
@@ -174,7 +174,7 @@
                     <div class="card">
                         <div class="card-body pb-5">
                             <div class="pt-4 pb-5">
-                                <img draggable="false" src="assets/img/illustration-6.svg" class="img-fluid img-center"
+                                <img draggable="false" src="${.templateAssets}/img/illustration-6.svg" class="img-fluid img-center"
                                     style="height: 150px;" alt="Illustration" />
                             </div>
                             <h5 class="h4 lh-130 mb-3">资金保障</h5>
@@ -186,7 +186,7 @@
                     <div class="card">
                         <div class="card-body pb-5">
                             <div class="pt-4 pb-5">
-                                <img draggable="false" src="assets/img/illustration-7.svg" class="img-fluid img-center"
+                                <img draggable="false" src="${.templateAssets}/img/illustration-7.svg" class="img-fluid img-center"
                                     style="height: 150px;" alt="Illustration" />
                             </div>
                             <h5 class="h4 lh-130 mb-3">持续更新</h5>
@@ -238,7 +238,7 @@
                     <div class="col-lg-6 order-lg-1">
                         <div class="card mb-0 mr-lg-5">
                             <div class="card-body p-2">
-                                <img draggable="false" alt="Image placeholder" src="assets/img/screen-1-1000x800.jpg" class="img-fluid shadow rounded">
+                                <img draggable="false" alt="Image placeholder" src="${.templateAssets}/img/screen-1-1000x800.jpg" class="img-fluid shadow rounded">
                             </div>
                         </div>
                     </div>
@@ -294,7 +294,7 @@
                     <div class="col-lg-6">
                         <div class="card mb-0 ml-lg-5">
                             <div class="card-body p-2">
-                                <img draggable="false" alt="Image placeholder" src="assets/img/screen-2-1000x800.jpg" class="img-fluid shadow rounded">
+                                <img draggable="false" alt="Image placeholder" src="${.templateAssets}/img/screen-2-1000x800.jpg" class="img-fluid shadow rounded">
                             </div>
                         </div>
                     </div>
@@ -418,7 +418,7 @@
                 <div class="row">
                     <div class="col-lg-4 mb-5 mb-lg-0">
                         <a href="/">
-                            <img draggable="false" alt="Image placeholder" height="80" src="assets/img/logo.png" id="footer-logo">
+                            <img draggable="false" alt="Image placeholder" height="80" src="${.templateAssets}/img/logo.png" id="footer-logo">
                         </a>
                         <p class="mt-4 text-sm opacity-8 pr-lg-4">${"web_title" | get_option}为每一个需要支付服务的企业提供服务和技术支持，帮助企业快速的搭建自己的支付系统。<br>
                             现在如今，支付是商业变现必不可少的环节。我们聚合所有主流支付渠道，给你更简单、快捷的接入体验，同时提供简单易用的管理平台，让你可以集中进行跨渠道的交易管理和财务管理。<br>
@@ -511,11 +511,11 @@
     </footer>
 
     <!-- Core JS  -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/svg-injector.min.js"></script>
-    <script src="assets/js/feather.min.js"></script>
-    <script src="assets/js/quick-website.js"></script>
+    <script src="${.templateAssets}/js/jquery.min.js"></script>
+    <script src="${.templateAssets}/js/bootstrap.bundle.min.js"></script>
+    <script src="${.templateAssets}/js/svg-injector.min.js"></script>
+    <script src="${.templateAssets}/js/feather.min.js"></script>
+    <script src="${.templateAssets}/js/quick-website.js"></script>
 
     <!-- Feather Icons -->
     <script>

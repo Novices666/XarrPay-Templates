@@ -1,0 +1,9 @@
+{
+  "name": "me_higo_pay1",
+  "title": "HG_支付页1",
+  "version": "1.0.1",
+  "description": "增加弹窗提示",
+  "author": "嗨购",
+  "type": 3,
+  "screenshot": "screenshot.png"
+}

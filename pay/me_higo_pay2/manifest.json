@@ -1,8 +1,9 @@
 {
-  "name": "HG_支付页2",
+  "name": "me_higo_pay2",
+  "title": "HG_支付页2",
   "version": "1.0.3",
   "description": "有问题请及时反馈；语音接口已写死，确保不会失效。",
   "author": "嗨购",
-  "license": "MIT",
+  "type": 3,
   "screenshot": "screenshot.png"
 }

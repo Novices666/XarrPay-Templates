@@ -4,9 +4,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="${" web_description" | get_option}">
+    <meta name="description" content="${"web_description" | get_option}">
     <meta name="author" content="HG007">
-    <meta name="keywords" content="${" web_keywords" | get_option}" />
+    <meta name="keywords" content="${"web_keywords" | get_option}" />
     <title>${"web_title" | get_option} - 行业领先的免签约支付平台</title>
     <!-- Preloader -->
     <style>
@@ -57,10 +57,10 @@
         });
     </script>
     <!-- Favicon -->
-    <link rel="icon" href="assets/img/favicon.png" type="image/png"><!-- Font Awesome -->
-    <link rel="stylesheet" href="assets/css/all.min.css">
+    <link rel="icon" href="${.templateAssets}/img/favicon.png" type="image/png"><!-- Font Awesome -->
+    <link rel="stylesheet" href="${.templateAssets}/css/all.min.css">
     <!-- Quick CSS -->
-    <link rel="stylesheet" href="assets/css/quick-website.css" id="stylesheet">
+    <link rel="stylesheet" href="${.templateAssets}/css/quick-website.css" id="stylesheet">
     
 </head>
 
@@ -97,7 +97,7 @@
         <div class="container">
             <!-- Brand -->
             <a class="navbar-brand-1" href="/index.html">
-                <img draggable="false" alt="Image placeholder" src="assets/img/logo.png" style="max-height:50px;"
+                <img draggable="false" alt="Image placeholder" src="${.templateAssets}/img/logo.png" style="max-height:50px;"
                     id="navbar-logo">
                 <span style="font-size: 30px;
                     /* line-height: 50px; */
@@ -153,7 +153,7 @@
                 <div class="col-12 col-md-5 col-lg-6 order-md-2 text-center">
                     <!-- Image -->
                     <figure class="w-100">
-                        <img draggable="false" alt="Image placeholder" src="assets/img/illustration-3.svg"
+                        <img draggable="false" alt="Image placeholder" src="${.templateAssets}/img/illustration-3.svg"
                             class="img-fluid mw-md-120">
                     </figure>
                 </div>
@@ -202,7 +202,7 @@
                     <div class="card">
                         <div class="card-body pb-5">
                             <div class="pt-4 pb-5">
-                                <img draggable="false" src="assets/img/illustration-5.svg" class="img-fluid img-center"
+                                <img draggable="false" src="${.templateAssets}/img/illustration-5.svg" class="img-fluid img-center"
                                     style="height: 150px;" alt="Illustration" />
                             </div>
                             <h5 class="h4 lh-130 mb-3">服务器安全</h5>
@@ -214,7 +214,7 @@
                     <div class="card">
                         <div class="card-body pb-5">
                             <div class="pt-4 pb-5">
-                                <img draggable="false" src="assets/img/illustration-6.svg" class="img-fluid img-center"
+                                <img draggable="false" src="${.templateAssets}/img/illustration-6.svg" class="img-fluid img-center"
                                     style="height: 150px;" alt="Illustration" />
                             </div>
                             <h5 class="h4 lh-130 mb-3">资金保障</h5>
@@ -226,7 +226,7 @@
                     <div class="card">
                         <div class="card-body pb-5">
                             <div class="pt-4 pb-5">
-                                <img draggable="false" src="assets/img/illustration-7.svg" class="img-fluid img-center"
+                                <img draggable="false" src="${.templateAssets}/img/illustration-7.svg" class="img-fluid img-center"
                                     style="height: 150px;" alt="Illustration" />
                             </div>
                             <h5 class="h4 lh-130 mb-3">持续更新</h5>
@@ -277,7 +277,7 @@
                     <div class="col-lg-6 order-lg-1">
                         <div class="card mb-0 mr-lg-5">
                             <div class="card-body p-2">
-                                <img draggable="false" alt="Image placeholder" src="assets/img/screen-1-1000x800.jpg"
+                                <img draggable="false" alt="Image placeholder" src="${.templateAssets}/img/screen-1-1000x800.jpg"
                                     class="img-fluid shadow rounded">
                             </div>
                         </div>
@@ -334,7 +334,7 @@
                     <div class="col-lg-6">
                         <div class="card mb-0 ml-lg-5">
                             <div class="card-body p-2">
-                                <img draggable="false" alt="Image placeholder" src="assets/img/screen-2-1000x800.jpg"
+                                <img draggable="false" alt="Image placeholder" src="${.templateAssets}/img/screen-2-1000x800.jpg"
                                     class="img-fluid shadow rounded">
                             </div>
                         </div>
@@ -660,7 +660,7 @@
                     <div class="col-lg-4 mb-5 mb-lg-0">
                         <!-- Theme's logo -->
                         <a href="/">
-                            <img draggable="false" alt="Image placeholder" height="80" src="assets/img/logo.png"
+                            <img draggable="false" alt="Image placeholder" height="80" src="${.templateAssets}/img/logo.png"
                                 id="footer-logo">
                         </a>
                         <!-- Webpixels' mission -->
@@ -729,7 +729,7 @@
                                 target="_blank">${"web_title" | get_option}&nbsp;</a>. All rights reserved
                             &nbsp;&nbsp;${"web_title" | get_option} <br><a
                                 href="https://beian.miit.gov.cn/">${"web_copyright" | get_option}</a>丨&nbsp;&nbsp;<img
-                                draggable="false" height="18" src="assets/img/logo01.dd7ff50e.png"><a
+                                draggable="false" height="18" src="${.templateAssets}/img/logo01.dd7ff50e.png"><a
                                 href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=XXXXXXXXX">&nbsp;X公网安备
                                 XXXXXXXXXXX号
                             </a>
@@ -759,12 +759,12 @@
         </div>
     </footer>
     <!-- Core JS  -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/svg-injector.min.js"></script>
-    <script src="assets/js/feather.min.js"></script>
+    <script src="${.templateAssets}/js/jquery.min.js"></script>
+    <script src="${.templateAssets}/js/bootstrap.bundle.min.js"></script>
+    <script src="${.templateAssets}/js/svg-injector.min.js"></script>
+    <script src="${.templateAssets}/js/feather.min.js"></script>
     <!-- Quick JS -->
-    <script src="assets/js/quick-website.js"></script>
+    <script src="${.templateAssets}/js/quick-website.js"></script>
     <!-- Feather Icons -->
     <script>
         feather.replace({

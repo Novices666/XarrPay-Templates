@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${"web_title" | get_option} - 分离支付</title>
+    <style>
+        :root { font-family: Arial, sans-serif; color: #1f2937; background: #f3f4f6; }
+        body { min-height: 100vh; margin: 0; display: grid; place-items: center; }
+        .card { width: min(92vw, 440px); box-sizing: border-box; padding: 28px; text-align: center; background: #fff; border-radius: 12px; box-shadow: 0 8px 30px rgba(15, 23, 42, .12); }
+        h1 { margin: 0 0 10px; font-size: 24px; }
+        .muted { color: #6b7280; word-break: break-all; }
+        .qr { display: block; width: min(72vw, 280px); aspect-ratio: 1; object-fit: contain; margin: 22px auto; }
+        .status { color: #1d4ed8; font-weight: 600; }
+        .error { color: #b91c1c; }
+    </style>
+</head>
+<body>
+    <main class="card">
+        <h1>聚合支付</h1>
+        <p class="muted">订单号：<span id="orderId">${.orderInfo.order_id}</span></p>
+        <p>支付金额：${.orderInfo.trade_amount_text} 元</p>
+        <p id="payType">支付方式：${.orderInfo.pay_type_info.label}</p>
+        <img id="qrcode" class="qr" alt="支付二维码">
+        <p id="message" class="status">正在加载支付信息</p>
+        <p class="muted">客服：${.contact}</p>
+    </main>
+    <script src="${.templateAssets}/js/api.js"></script>
+    <script>
+        const orderId = document.getElementById("orderId").textContent.trim();
+        const qrcode = document.getElementById("qrcode");
+        const message = document.getElementById("message");
+        let statusTimer = null;
+
+        async function loadQRCode() {
+            const result = await Api.getOrderQRCode(orderId);
+            const image = result.qrcode_data || result.qrcode;
+            if (image) {
+                qrcode.src = image;
+            }
+            if (result.type === "jump" && (result.uri || result.scheme)) {
+                window.location.href = result.uri || result.scheme;
+                return;
+            }
+            message.textContent = result.content || "请使用对应支付方式扫码完成支付";
+        }
+
+        async function checkStatus() {
+            const result = await Api.getOrderStatus(orderId);
+            if (result.status === 2) {
+                clearInterval(statusTimer);
+                message.textContent = "支付成功，正在返回商户";
+                if (result.return_uri) {
+                    window.setTimeout(() => { window.location.href = result.return_uri; }, Math.max(0, Number(result.pay_payed_wait_time) || 0) * 1000);
+                }
+                return true;
+            } else if ([3, 4, 5].includes(result.status)) {
+                clearInterval(statusTimer);
+                message.className = "error";
+                message.textContent = result.status === 3 ? "订单已关闭" : result.status === 4 ? "订单已超时" : "订单状态异常";
+                return true;
+            }
+            return false;
+        }
+
+        window.addEventListener("load", async () => {
+            try {
+                await loadQRCode();
+                const isTerminal = await checkStatus();
+                if (!isTerminal) {
+                    statusTimer = window.setInterval(checkStatus, 2000);
+                }
+            } catch (error) {
+                message.className = "error";
+                message.textContent = "支付信息加载失败";
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>

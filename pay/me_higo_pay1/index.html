@@ -254,9 +254,8 @@
             <div class="card" style="margin-left: 0px;">
                 <h3>支付二维码</h3>
                 <div id="payTip" style="max-width: 100%;"></div>
-                <image id="qrcodeData" src="${.templateAssets}/images/qrcode_loding.png" alt="二维码"
+                <img id="qrcodeData" src="${.templateAssets}/images/qrcode_loding.png" alt="二维码"
                     style="width: 60%;display: flex;align-items: center;justify-content: center;margin: 0 auto;">
-                </image>
                 <button class="btnscheme" id="qrcodeSchemeBtn" onclick="JumpPayScheme()">跳转支付</button>
 
             </div>
@@ -269,7 +268,7 @@
                 </div>
                 <div class="detail">
                     <span>支付方式:</span>
-                    <image style="width: 30px;" src="${.orderInfo.pay_type_info.logo}" alt="" id="payTypeLogo"></image>
+                    <img style="width: 30px;" src="${.orderInfo.pay_type_info.logo}" alt="支付方式" id="payTypeLogo">
                 </div>
                 <div class="detail">
                     <span>订单状态:</span>
@@ -328,15 +327,24 @@
             domElements.modal.classList.remove('show');
         }
         function JumpPayScheme() {
-            window.location.href = orderQRCode.scheme;
+            if (orderQRCode && orderQRCode.scheme) {
+                window.location.href = orderQRCode.scheme;
+            }
         }
         // 页面加载完成执行
         window.onload = async function () {
-            await getOrderData();
-            showModal();
-            startCheckOrderStatus();
-            startCountdown();
-            loadOrderData();
+            try {
+                await getOrderData();
+                loadOrderData();
+                if (orderInfo && orderInfo.status == 1) {
+                    showModal();
+                    startCheckOrderStatus();
+                    startCountdown();
+                }
+            } catch (error) {
+                domElements.status.textContent = "订单信息获取失败";
+                console.error(error);
+            }
 
         };
     </script>

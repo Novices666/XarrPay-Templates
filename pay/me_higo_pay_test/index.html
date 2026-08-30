@@ -143,11 +143,18 @@
     </div>
     </div>
 
-    <script src="./assets/js/api.js"></script>
+    <script src="${.templateAssets}/js/api.js"></script>
     <script>
         // 格式化JSON显示
         function formatJson(json) {
             return JSON.stringify(json, null, 2);
+        }
+
+        async function callApis() {
+            await getOrderInfo();
+            await getOrderStatus();
+            await getOrderQRCode();
+            await getOrderAudio();
         }
 
         // 创建数据项HTML

@@ -1,3 +1,9 @@
+# 当前主题
+
+`me_higo_pay1` 和 `me_higo_pay2` 已按新版支付主题结构适配，分别包含 `index.html`、`status.html` 和 `separate.html`。`me_higo_pay_test` 仅用于接口测试，`me_higo_pay3` 尚未完成，不应部署。
+
+打包文件位于 `src/`，解压后直接上传至 `templates/pay/主题目录名`。
+
 # 通用参数
 
 # 接口

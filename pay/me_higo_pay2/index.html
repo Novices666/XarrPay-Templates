@@ -747,15 +747,24 @@
             domElements.modal.classList.remove('show');
         }
         function JumpPayScheme() {
-            window.location.href = orderQRCode.scheme;
+            if (orderQRCode && orderQRCode.scheme) {
+                window.location.href = orderQRCode.scheme;
+            }
         }
         // 页面加载完成执行
         window.onload = async function () {
-            await getOrderData();
-            startCheckOrderStatus();
-            showModal();
-            startCountdown();
-            loadOrderData();
+            try {
+                await getOrderData();
+                loadOrderData();
+                if (orderInfo && orderInfo.status == 1) {
+                    startCheckOrderStatus();
+                    showModal();
+                    startCountdown();
+                }
+            } catch (error) {
+                domElements.status.textContent = "订单信息获取失败";
+                console.error(error);
+            }
 
         };
     </script>

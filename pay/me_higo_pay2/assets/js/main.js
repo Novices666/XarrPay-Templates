@@ -16,7 +16,7 @@ const domElements = {
     modal: document.getElementById("modal"),
     qrcodeSchemeBtn: document.getElementById("qrcodeSchemeBtn"),
 };
-const OrderId = domElements.orderId.textContent;
+const OrderId = domElements.orderId ? domElements.orderId.textContent.trim() : "";
 console.log(OrderId);
 var orderInfo = null;
 var orderQRCode = null;
@@ -25,8 +25,17 @@ var orderStatus = null;
 // 通过接口获取数据
 async function getOrderData() {
     try {
+        if (!OrderId) {
+            throw new Error("订单号为空");
+        }
         orderInfo = await Api.getOrderInfo(OrderId);
         console.log(orderInfo);
+        orderStatus = {
+            status: orderInfo.status,
+            expire_time: orderInfo.expire_time,
+            pay_payed_wait_time: orderInfo.pay_payed_wait_time,
+            return_uri: orderInfo.return_uri
+        };
         if (orderInfo.status == 1) {
             orderQRCode = await Api.getOrderQRCode(OrderId);
             console.log(orderQRCode);
@@ -36,36 +45,51 @@ async function getOrderData() {
         }
     } catch (e) {
         console.error(e);
+        throw e;
     }
 }
 // 加载数据到页面
 function loadOrderData() {
-    domElements.subject.textContent = orderInfo.subject;
-    domElements.tradeAmount.textContent = (orderInfo.trade_amount / 100).toFixed(
-        2
-    );
-    domElements.payTypeText.textContent = orderInfo.pay_type_text;
-    domElements.payTypeLogo.src = orderInfo.pay_type_logo;
-    domElements.serviceQq.textContent = orderInfo.service_qq;
-    domElements.createTime.textContent = orderInfo.create_time;
-    domElements.payTip.innerHTML = orderInfo.pay_tip;
-    if (orderAudio.audio_enable == 1) {
-        domElements.audio.src =
-            "https://tts.xarr.uk?t=" + encodeURI(orderAudio.audio_content);
+    if (!orderInfo) {
+        domElements.status.textContent = "订单信息获取失败";
+        return;
     }
-    loadOrderQRCode(orderQRCode);
+    domElements.subject.textContent = orderInfo.subject;
+    const tradeAmount = Number(orderInfo.trade_amount);
+    domElements.tradeAmount.textContent = Number.isFinite(tradeAmount)
+        ? (tradeAmount / 100).toFixed(2)
+        : (orderInfo.trade_amount_text || "");
+    domElements.payTypeText.textContent = orderInfo.pay_type_text || (orderInfo.pay_type_info && orderInfo.pay_type_info.label) || "";
+    domElements.payTypeLogo.src = orderInfo.pay_type_logo || (orderInfo.pay_type_info && orderInfo.pay_type_info.logo) || "";
+    domElements.serviceQq.textContent = orderInfo.service_qq || "";
+    domElements.createTime.textContent = orderInfo.create_time;
+    domElements.payTip.textContent = orderInfo.pay_tip || "";
+    if (orderAudio && orderAudio.audio_enable == 1) {
+        domElements.audio.src = orderAudio.audio_url ||
+            ("https://tts.xarr.uk?t=" + encodeURIComponent(orderAudio.audio_content || ""));
+    }
+    if (orderQRCode) {
+        loadOrderQRCode(orderQRCode);
+    }
     initOrderStatus(orderInfo.status);
 }
 // 加载支付二维码
 function loadOrderQRCode(orderQRCode) {
+    if (!orderQRCode) {
+        return;
+    }
+    if (domElements.qrcodeSchemeBtn) {
+        domElements.qrcodeSchemeBtn.style.display = orderQRCode.scheme ? "" : "none";
+        domElements.qrcodeSchemeBtn.disabled = !orderQRCode.scheme;
+    }
     switch (orderQRCode.type) {
         case "qrcode":
-            domElements.qrcodeData.src = orderQRCode.qrcode_data;
+            domElements.qrcodeData.src = orderQRCode.qrcode_data || orderQRCode.qrcode || "";
             domElements.qrcodeData.style.width = "80%";
             domElements.qrcodeData.style.height = "80%";
             break;
         case "jump":
-            window.location.href = orderQRCode.uri;
+            window.location.href = orderQRCode.uri || orderQRCode.scheme;
             break;
     }
 }
@@ -96,7 +120,11 @@ function loadOrderStatus(orderStatus) {
             break;
         case 2: // 已支付
             domElements.status.textContent = "支付完成";
-            let remainingTime = orderStatus.pay_payed_wait_time;
+            const returnUri = orderStatus.return_uri;
+            if (!returnUri) {
+                return;
+            }
+            let remainingTime = Math.max(0, Number(orderStatus.pay_payed_wait_time) || 0);
             console.log(orderStatus.pay_payed_wait_time + "秒后跳转");
             domElements.modal.classList.remove("show");
             domElements.countdown.textContent = "支付成功 \n"+remainingTime+" 秒后跳转";
@@ -106,14 +134,14 @@ function loadOrderStatus(orderStatus) {
                 domElements.countdown.textContent = "支付成功 \n"+remainingTime+" 秒后跳转";
                 if (remainingTime <= 0) {
                     clearInterval(countdownInterval); // 清除倒计时定时器
-                    window.location.href = orderStatus.return_uri;
+                    window.location.href = returnUri;
                 }
             }, 1000);
 
             setTimeout(function () {
                 clearInterval(countdownInterval);
-                window.location.href = orderStatus.return_uri;
-            }, orderStatus.pay_payed_wait_time * 1000);
+                window.location.href = returnUri;
+            }, remainingTime * 1000);
             return;
             break;
         case 3: // 订单关闭
@@ -136,7 +164,7 @@ async function startCheckOrderStatus() {
         try {
             orderStatus = await Api.getOrderStatus(OrderId);
             console.log(orderStatus);
-            if (orderStatus.status == 2) {
+            if ([2, 3, 4, 5].includes(orderStatus.status)) {
                 clearInterval(timer);
             }
             loadOrderStatus(orderStatus);
@@ -147,6 +175,9 @@ async function startCheckOrderStatus() {
 }
 // 支付倒计时
 function startCountdown() {
+    if (!orderInfo || !orderStatus || orderStatus.status != 1 || !orderInfo.expire_time) {
+        return;
+    }
     var expireTime = orderInfo.expire_time;
     let alertTriggered = false;//显示状态是否切换
     let finalAlertTriggered = false;
